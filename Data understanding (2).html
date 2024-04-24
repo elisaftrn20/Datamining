@@ -1,0 +1,3405 @@
+
+<!DOCTYPE html>
+
+
+<html lang="en" data-content_root="./" >
+
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <title>1. Pengumpulan Data dan Pembuatan Tabel Iris Flower &#8212; My sample book</title>
+  
+  
+  
+  <script data-cfasync="false">
+    document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
+    document.documentElement.dataset.theme = localStorage.getItem("theme") || "light";
+  </script>
+  
+  <!-- Loaded before other Sphinx assets -->
+  <link href="_static/styles/theme.css?digest=8d27b9dea8ad943066ae" rel="stylesheet" />
+<link href="_static/styles/bootstrap.css?digest=8d27b9dea8ad943066ae" rel="stylesheet" />
+<link href="_static/styles/pydata-sphinx-theme.css?digest=8d27b9dea8ad943066ae" rel="stylesheet" />
+
+  
+  <link href="_static/vendor/fontawesome/6.5.1/css/all.min.css?digest=8d27b9dea8ad943066ae" rel="stylesheet" />
+  <link rel="preload" as="font" type="font/woff2" crossorigin href="_static/vendor/fontawesome/6.5.1/webfonts/fa-solid-900.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="_static/vendor/fontawesome/6.5.1/webfonts/fa-brands-400.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="_static/vendor/fontawesome/6.5.1/webfonts/fa-regular-400.woff2" />
+
+    <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=fa44fd50" />
+    <link rel="stylesheet" type="text/css" href="_static/styles/sphinx-book-theme.css?v=384b581d" />
+    <link rel="stylesheet" type="text/css" href="_static/togglebutton.css?v=13237357" />
+    <link rel="stylesheet" type="text/css" href="_static/copybutton.css?v=76b2166b" />
+    <link rel="stylesheet" type="text/css" href="_static/mystnb.4510f1fc1dee50b3e5859aac5469c37c29e427902b24a333a5f9fcb2f0b3ac41.css" />
+    <link rel="stylesheet" type="text/css" href="_static/sphinx-thebe.css?v=4fa983c6" />
+    <link rel="stylesheet" type="text/css" href="_static/design-style.1e8bd061cd6da7fc9cf755528e8ffc24.min.css?v=0a3b3ea7" />
+  
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="_static/scripts/bootstrap.js?digest=8d27b9dea8ad943066ae" />
+<link rel="preload" as="script" href="_static/scripts/pydata-sphinx-theme.js?digest=8d27b9dea8ad943066ae" />
+  <script src="_static/vendor/fontawesome/6.5.1/js/all.min.js?digest=8d27b9dea8ad943066ae"></script>
+
+    <script src="_static/documentation_options.js?v=9eb32ce0"></script>
+    <script src="_static/doctools.js?v=9a2dae69"></script>
+    <script src="_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="_static/clipboard.min.js?v=a7894cd8"></script>
+    <script src="_static/copybutton.js?v=f281be69"></script>
+    <script src="_static/scripts/sphinx-book-theme.js?v=efea14e4"></script>
+    <script>let toggleHintShow = 'Click to show';</script>
+    <script>let toggleHintHide = 'Click to hide';</script>
+    <script>let toggleOpenOnPrint = 'true';</script>
+    <script src="_static/togglebutton.js?v=4a39c7ea"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+    <script src="_static/design-tabs.js?v=36754332"></script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"; const thebe_selector = ".thebe,.cell"; const thebe_selector_input = "pre"; const thebe_selector_output = ".output, .cell_output"</script>
+    <script async="async" src="_static/sphinx-thebe.js?v=c100c467"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"; const thebe_selector = ".thebe,.cell"; const thebe_selector_input = "pre"; const thebe_selector_output = ".output, .cell_output"</script>
+    <script>window.MathJax = {"options": {"processHtmlClass": "tex2jax_process|mathjax_process|math|output_area"}}</script>
+    <script defer="defer" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <script>DOCUMENTATION_OPTIONS.pagename = 'Data understanding (2)';</script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="Notebooks with MyST Markdown" href="markdown-notebooks.html" />
+    <link rel="prev" title="Markdown Files" href="markdown.html" />
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <meta name="docsearch:language" content="en"/>
+  </head>
+  
+  
+  <body data-bs-spy="scroll" data-bs-target=".bd-toc-nav" data-offset="180" data-bs-root-margin="0px 0px -60%" data-default-mode="">
+
+  
+  
+  <a id="pst-skip-link" class="skip-link" href="#main-content">Skip to main content</a>
+  
+  <div id="pst-scroll-pixel-helper"></div>
+  
+  <button type="button" class="btn rounded-pill" id="pst-back-to-top">
+    <i class="fa-solid fa-arrow-up"></i>
+    Back to top
+  </button>
+
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          name="__primary"
+          id="__primary"/>
+  <label class="overlay overlay-primary" for="__primary"></label>
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          name="__secondary"
+          id="__secondary"/>
+  <label class="overlay overlay-secondary" for="__secondary"></label>
+  
+  <div class="search-button__wrapper">
+    <div class="search-button__overlay"></div>
+    <div class="search-button__search-container">
+<form class="bd-search d-flex align-items-center"
+      action="search.html"
+      method="get">
+  <i class="fa-solid fa-magnifying-glass"></i>
+  <input type="search"
+         class="form-control"
+         name="q"
+         id="search-input"
+         placeholder="Search this book..."
+         aria-label="Search this book..."
+         autocomplete="off"
+         autocorrect="off"
+         autocapitalize="off"
+         spellcheck="false"/>
+  <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
+</form></div>
+  </div>
+  
+    <header class="bd-header navbar navbar-expand-lg bd-navbar">
+    </header>
+  
+
+  <div class="bd-container">
+    <div class="bd-container__inner bd-page-width">
+      
+      
+      
+      <div class="bd-sidebar-primary bd-sidebar">
+        
+
+  
+  <div class="sidebar-header-items sidebar-primary__section">
+    
+    
+    
+    
+  </div>
+  
+    <div class="sidebar-primary-items__start sidebar-primary__section">
+        <div class="sidebar-primary-item">
+
+  
+
+<a class="navbar-brand logo" href="intro.html">
+  
+  
+  
+  
+  
+    
+    
+      
+    
+    
+    <img src="_static/logo.png" class="logo__image only-light" alt="My sample book - Home"/>
+    <script>document.write(`<img src="_static/logo.png" class="logo__image only-dark" alt="My sample book - Home"/>`);</script>
+  
+  
+</a></div>
+        <div class="sidebar-primary-item">
+
+ <script>
+ document.write(`
+   <button class="btn navbar-btn search-button-field search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass"></i>
+    <span class="search-button__default-text">Search</span>
+    <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+   </button>
+ `);
+ </script></div>
+        <div class="sidebar-primary-item"><nav class="bd-links bd-docs-nav" aria-label="Main">
+    <div class="bd-toc-item navbar-nav active">
+        
+        <ul class="nav bd-sidenav bd-sidenav__home-link">
+            <li class="toctree-l1">
+                <a class="reference internal" href="intro.html">
+                    Welcome to your Jupyter Book
+                </a>
+            </li>
+        </ul>
+        <ul class="current nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="markdown.html">Markdown Files</a></li>
+<li class="toctree-l1 current active"><a class="current reference internal" href="#">1. Pengumpulan Data dan Pembuatan Tabel Iris Flower</a></li>
+
+
+
+
+<li class="toctree-l1"><a class="reference internal" href="markdown-notebooks.html">Notebooks with MyST Markdown</a></li>
+</ul>
+
+    </div>
+</nav></div>
+    </div>
+  
+  
+  <div class="sidebar-primary-items__end sidebar-primary__section">
+  </div>
+  
+  <div id="rtd-footer-container"></div>
+
+
+      </div>
+      
+      <main id="main-content" class="bd-main">
+        
+        
+
+<div class="sbt-scroll-pixel-helper"></div>
+
+          <div class="bd-content">
+            <div class="bd-article-container">
+              
+              <div class="bd-header-article">
+<div class="header-article-items header-article__inner">
+  
+    <div class="header-article-items__start">
+      
+        <div class="header-article-item"><label class="sidebar-toggle primary-toggle btn btn-sm" for="__primary" title="Toggle primary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <span class="fa-solid fa-bars"></span>
+</label></div>
+      
+    </div>
+  
+  
+    <div class="header-article-items__end">
+      
+        <div class="header-article-item">
+
+<div class="article-header-buttons">
+
+
+
+
+
+<div class="dropdown dropdown-source-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Source repositories">
+    <i class="fab fa-github"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="https://github.com/executablebooks/jupyter-book" target="_blank"
+   class="btn btn-sm btn-source-repository-button dropdown-item"
+   title="Source repository"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fab fa-github"></i>
+  </span>
+<span class="btn__text-container">Repository</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li><a href="https://github.com/executablebooks/jupyter-book/issues/new?title=Issue%20on%20page%20%2FData understanding (2).html&body=Your%20issue%20content%20here." target="_blank"
+   class="btn btn-sm btn-source-issues-button dropdown-item"
+   title="Open an issue"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-lightbulb"></i>
+  </span>
+<span class="btn__text-container">Open issue</span>
+</a>
+</li>
+      
+  </ul>
+</div>
+
+
+
+
+
+
+<div class="dropdown dropdown-download-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Download this page">
+    <i class="fas fa-download"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="_sources/Data understanding (2).ipynb" target="_blank"
+   class="btn btn-sm btn-download-source-button dropdown-item"
+   title="Download source file"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file"></i>
+  </span>
+<span class="btn__text-container">.ipynb</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li>
+<button onclick="window.print()"
+  class="btn btn-sm btn-download-pdf-button dropdown-item"
+  title="Print to PDF"
+  data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file-pdf"></i>
+  </span>
+<span class="btn__text-container">.pdf</span>
+</button>
+</li>
+      
+  </ul>
+</div>
+
+
+
+
+<button onclick="toggleFullScreen()"
+  class="btn btn-sm btn-fullscreen-button"
+  title="Fullscreen mode"
+  data-bs-placement="bottom" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-expand"></i>
+  </span>
+
+</button>
+
+
+
+<script>
+document.write(`
+  <button class="btn btn-sm navbar-btn theme-switch-button" title="light/dark" aria-label="light/dark" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="theme-switch nav-link" data-mode="light"><i class="fa-solid fa-sun fa-lg"></i></span>
+    <span class="theme-switch nav-link" data-mode="dark"><i class="fa-solid fa-moon fa-lg"></i></span>
+    <span class="theme-switch nav-link" data-mode="auto"><i class="fa-solid fa-circle-half-stroke fa-lg"></i></span>
+  </button>
+`);
+</script>
+
+
+<script>
+document.write(`
+  <button class="btn btn-sm navbar-btn search-button search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass fa-lg"></i>
+  </button>
+`);
+</script>
+<label class="sidebar-toggle secondary-toggle btn btn-sm" for="__secondary"title="Toggle secondary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="fa-solid fa-list"></span>
+</label>
+</div></div>
+      
+    </div>
+  
+</div>
+</div>
+              
+              
+
+<div id="jb-print-docs-body" class="onlyprint">
+    <h1>1. Pengumpulan Data dan Pembuatan Tabel Iris Flower</h1>
+    <!-- Table of contents -->
+    <div id="print-main-content">
+        <div id="jb-print-toc">
+            
+            <div>
+                <h2> Contents </h2>
+            </div>
+            <nav aria-label="Page">
+                <ul class="visible nav section-nav flex-column">
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#">1. Pengumpulan Data dan Pembuatan Tabel Iris Flower</a><ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#menampilkan-data-postgre">1.1 Menampilkan Data Postgre</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#menampilkan-data-cloud">1.2 Menampilkan Data Cloud</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#menampilkan-semua-data">1.3 Menampilkan Semua Data</a></li>
+</ul>
+</li>
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#pemahaman-data">2. Pemahaman Data</a><ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#menampilkan-data-sepal-length-yang-kosong">2.1 Menampilkan data sepal length yang kosong</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#menampilkan-data-sepal-length-setosa-yang-kosong">2.2 Menampilkan data sepal length “setosa” yang kosong</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#menampilkan-data-sepal-length-setosa-yang-tidak-kosong">2.3 Menampilkan data sepal length “setosa” yang  tidak kosong</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#menampilkan-mean">2.4 Menampilkan MEAN</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#memasukkan-dan-update-data-baru">2.5 Memasukkan dan update data baru</a></li>
+</ul>
+</li>
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#implementasi-pada-missing-value-knn">3. Implementasi pada missing value KNN</a><ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#perhitungan-manual-excel">3.1 Perhitungan Manual Excel</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#persiapkan-data">3.1.1 Persiapkan Data</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#missing-values-dan-rata-rata">3.1.2 Missing Values dan rata rata</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#menghitung-jarak-rank-dan-tetangga-terdekat">3.1.3  Menghitung Jarak,Rank, dan tetangga terdekat</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#perhitungan-scikit">3.2 Perhitungan Scikit</a></li>
+</ul>
+</li>
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#deteksi-outlier">4. DETEKSI OUTLIER()</a><ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#penjelasan">4.1 Penjelasan</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#menghitung-manual-deteksi-outlier">4.2 Menghitung manual deteksi outlier</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#menghitung-jarak-dan-menetukan-k-neighbour">4.2.1 MENGHITUNG JARAK DAN MENETUKAN K-NEIGHBOUR</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#reachability-density-rd">4.2.2 REACHABILITY DENSITY (RD)</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#local-reachability-density-lrd">4.2.3 LOCAL REACHABILITY DENSITY(LRD)</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#local-outlier-factor-lof">4.2.4 LOCAL OUTLIER FACTOR(LOF)</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#menghitung-menggunakan-library-scikit">4.3 Menghitung menggunakan library Scikit</a></li>
+</ul>
+</li>
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#naive-bayes-classifier">5. NAIVE BAYES CLASSIFIER</a><ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id1">5.1 Penjelasan</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#supervised-learning-vs-unsupervised-learning">5.1.1 Supervised Learning vs Unsupervised Learning</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#klasifikasi-dan-prediksi">5.1.2 KLASIFIKASI DAN PREDIKSI</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#perhitungan-naive-bayes-menggunakan-code">5.2 PERHITUNGAN NAIVE BAYES MENGGUNAKAN CODE</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#perhitungan-manual-naive-bayes-menggunakan-excel">5.3 PERHITUNGAN MANUAL NAIVE BAYES MENGGUNAKAN EXCEL</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id2">5.3.1 Persiapkan Data</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#menghitung-probabilitas-setiap-kelas-variety">5.3.2 Menghitung Probabilitas Setiap Kelas / Variety</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#menghitung-mean-dari-fitur-setiap-kelas">5.3.3 Menghitung MEAN dari Fitur Setiap Kelas</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#menghitung-varian-dari-fitur-setiap-kelas">5.3.4 Menghitung VARIAN dari Fitur Setiap Kelas</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#hitung-probabilitas-tiap-kelas-dengan-inputan">5.3.5 Hitung Probabilitas Tiap Kelas Dengan Inputan</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#klasifikasi-hasil-akhir-dan-perankingan">5.3.6 Klasifikasi Hasil Akhir dan Perankingan</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+
+            </nav>
+        </div>
+    </div>
+</div>
+
+              
+                
+<div id="searchbox"></div>
+                <article class="bd-article">
+                  
+  <section class="tex2jax_ignore mathjax_ignore" id="pengumpulan-data-dan-pembuatan-tabel-iris-flower">
+<h1>1. Pengumpulan Data dan Pembuatan Tabel Iris Flower<a class="headerlink" href="#pengumpulan-data-dan-pembuatan-tabel-iris-flower" title="Link to this heading">#</a></h1>
+<p>pada pekerjaan ini kita akan melakukan analisa klasifikasi bunga. oleh karena itu tugas pertama adalah mengumpulkan data iris flower</p>
+<p>data ada di <a class="reference external" href="http://aiven.com">aiven.com</a> untuk perlu ditarik datanya</p>
+<ul class="simple">
+<li><p>buat tabel di cloud yang terdiri dari id, sepal length, sepal width, class.</p></li>
+</ul>
+<ul class="simple">
+<li><p>buat tabel di postgre yang terdiri dari id, petal length, petal width, class.</p></li>
+</ul>
+<section id="menampilkan-data-postgre">
+<h2>1.1 Menampilkan Data Postgre<a class="headerlink" href="#menampilkan-data-postgre" title="Link to this heading">#</a></h2>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">df_2</span> <span class="o">=</span> <span class="n">_deepnote_execute_sql</span><span class="p">(</span><span class="s1">&#39;SELECT * FROM postgre_2</span><span class="se">\n</span><span class="s1">&#39;</span><span class="p">,</span> <span class="s1">&#39;SQL_199FD5C9_6D99_4650_968D_C19C230E2F4C&#39;</span><span class="p">,</span> <span class="n">audit_sql_comment</span><span class="o">=</span><span class="s1">&#39;&#39;</span><span class="p">,</span> <span class="n">sql_cache_mode</span><span class="o">=</span><span class="s1">&#39;cache_disabled&#39;</span><span class="p">)</span>
+<span class="n">df_2</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output traceback highlight-ipythontb notranslate"><div class="highlight"><pre><span></span><span class="gt">---------------------------------------------------------------------------</span>
+<span class="ne">NameError</span><span class="g g-Whitespace">                                 </span>Traceback (most recent call last)
+<span class="nn">&lt;ipython-input-1-174b75eed70a&gt;</span> in <span class="ni">&lt;cell line: 1&gt;</span><span class="nt">()</span>
+<span class="ne">----&gt; </span><span class="mi">1</span> <span class="n">df_2</span> <span class="o">=</span> <span class="n">_deepnote_execute_sql</span><span class="p">(</span><span class="s1">&#39;SELECT * FROM postgre_2</span><span class="se">\n</span><span class="s1">&#39;</span><span class="p">,</span> <span class="s1">&#39;SQL_199FD5C9_6D99_4650_968D_C19C230E2F4C&#39;</span><span class="p">,</span> <span class="n">audit_sql_comment</span><span class="o">=</span><span class="s1">&#39;&#39;</span><span class="p">,</span> <span class="n">sql_cache_mode</span><span class="o">=</span><span class="s1">&#39;cache_disabled&#39;</span><span class="p">)</span>
+<span class="g g-Whitespace">      </span><span class="mi">2</span> <span class="n">df_2</span>
+
+<span class="ne">NameError</span>: name &#39;_deepnote_execute_sql&#39; is not defined
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section id="menampilkan-data-cloud">
+<h2>1.2 Menampilkan Data Cloud<a class="headerlink" href="#menampilkan-data-cloud" title="Link to this heading">#</a></h2>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">df_2</span> <span class="o">=</span> <span class="n">_deepnote_execute_sql</span><span class="p">(</span><span class="s1">&#39;SELECT * FROM iris_cloud&#39;</span><span class="p">,</span> <span class="s1">&#39;SQL_882C57EC_1473_40A7_BE13_C15EDFB4392E&#39;</span><span class="p">,</span> <span class="n">audit_sql_comment</span><span class="o">=</span><span class="s1">&#39;&#39;</span><span class="p">,</span> <span class="n">sql_cache_mode</span><span class="o">=</span><span class="s1">&#39;cache_disabled&#39;</span><span class="p">)</span>
+<span class="n">df_2</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_html"><div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>id</th>
+      <th>sepal.length</th>
+      <th>sepal.width</th>
+      <th>variety</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>1</td>
+      <td>5.1</td>
+      <td>3.5</td>
+      <td>Setosa</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>2</td>
+      <td>4.9</td>
+      <td>3.0</td>
+      <td>Setosa</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>3</td>
+      <td>4.7</td>
+      <td>3.2</td>
+      <td>Setosa</td>
+    </tr>
+    <tr>
+      <th>3</th>
+      <td>4</td>
+      <td>4.6</td>
+      <td>3.1</td>
+      <td>Setosa</td>
+    </tr>
+    <tr>
+      <th>4</th>
+      <td>5</td>
+      <td>5.0</td>
+      <td>3.6</td>
+      <td>Setosa</td>
+    </tr>
+    <tr>
+      <th>...</th>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+    </tr>
+    <tr>
+      <th>145</th>
+      <td>146</td>
+      <td>6.7</td>
+      <td>3.0</td>
+      <td>Virginica</td>
+    </tr>
+    <tr>
+      <th>146</th>
+      <td>147</td>
+      <td>6.3</td>
+      <td>2.5</td>
+      <td>Virginica</td>
+    </tr>
+    <tr>
+      <th>147</th>
+      <td>148</td>
+      <td>6.5</td>
+      <td>3.0</td>
+      <td>Virginica</td>
+    </tr>
+    <tr>
+      <th>148</th>
+      <td>149</td>
+      <td>6.2</td>
+      <td>3.4</td>
+      <td>Virginica</td>
+    </tr>
+    <tr>
+      <th>149</th>
+      <td>150</td>
+      <td>5.9</td>
+      <td>3.0</td>
+      <td>Virginica</td>
+    </tr>
+  </tbody>
+</table>
+<p>150 rows × 4 columns</p>
+</div></div></div>
+</div>
+</section>
+<section id="menampilkan-semua-data">
+<h2>1.3 Menampilkan Semua Data<a class="headerlink" href="#menampilkan-semua-data" title="Link to this heading">#</a></h2>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">df_3</span> <span class="o">=</span> <span class="n">_deepnote_execute_sql</span><span class="p">(</span><span class="s1">&#39;SELECT * FROM iris</span><span class="se">\n</span><span class="s1">&#39;</span><span class="p">,</span> <span class="s1">&#39;SQL_882C57EC_1473_40A7_BE13_C15EDFB4392E&#39;</span><span class="p">,</span> <span class="n">audit_sql_comment</span><span class="o">=</span><span class="s1">&#39;&#39;</span><span class="p">,</span> <span class="n">sql_cache_mode</span><span class="o">=</span><span class="s1">&#39;cache_disabled&#39;</span><span class="p">)</span>
+<span class="n">df_3</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_html"><div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>id</th>
+      <th>sepal.length</th>
+      <th>sepal.width</th>
+      <th>petal.length</th>
+      <th>petal.width</th>
+      <th>variety</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>1</td>
+      <td>5.1</td>
+      <td>3.5</td>
+      <td>1.4</td>
+      <td>0.2</td>
+      <td>Setosa</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>2</td>
+      <td>4.9</td>
+      <td>3.0</td>
+      <td>1.4</td>
+      <td>0.2</td>
+      <td>Setosa</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>3</td>
+      <td>4.9</td>
+      <td>3.2</td>
+      <td>1.3</td>
+      <td>0.2</td>
+      <td>Setosa</td>
+    </tr>
+    <tr>
+      <th>3</th>
+      <td>4</td>
+      <td>4.6</td>
+      <td>3.1</td>
+      <td>1.5</td>
+      <td>0.2</td>
+      <td>Setosa</td>
+    </tr>
+    <tr>
+      <th>4</th>
+      <td>5</td>
+      <td>5.0</td>
+      <td>3.6</td>
+      <td>1.4</td>
+      <td>0.2</td>
+      <td>Setosa</td>
+    </tr>
+    <tr>
+      <th>...</th>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+    </tr>
+    <tr>
+      <th>145</th>
+      <td>146</td>
+      <td>6.7</td>
+      <td>3.0</td>
+      <td>5.2</td>
+      <td>2.3</td>
+      <td>Virginica</td>
+    </tr>
+    <tr>
+      <th>146</th>
+      <td>147</td>
+      <td>6.3</td>
+      <td>2.5</td>
+      <td>5.0</td>
+      <td>1.9</td>
+      <td>Virginica</td>
+    </tr>
+    <tr>
+      <th>147</th>
+      <td>148</td>
+      <td>6.5</td>
+      <td>3.0</td>
+      <td>5.2</td>
+      <td>2.0</td>
+      <td>Virginica</td>
+    </tr>
+    <tr>
+      <th>148</th>
+      <td>149</td>
+      <td>6.2</td>
+      <td>3.4</td>
+      <td>5.4</td>
+      <td>2.3</td>
+      <td>Virginica</td>
+    </tr>
+    <tr>
+      <th>149</th>
+      <td>150</td>
+      <td>5.9</td>
+      <td>3.0</td>
+      <td>5.1</td>
+      <td>1.8</td>
+      <td>Virginica</td>
+    </tr>
+  </tbody>
+</table>
+<p>150 rows × 6 columns</p>
+</div></div></div>
+</div>
+</section>
+</section>
+<section class="tex2jax_ignore mathjax_ignore" id="pemahaman-data">
+<h1>2. Pemahaman Data<a class="headerlink" href="#pemahaman-data" title="Link to this heading">#</a></h1>
+<p>pada pekerjaan ini kami akan mendeskripsikan data iris</p>
+<ul class="simple">
+<li><p>menentukan jumlah data perkelas (data klasifikasi)</p></li>
+</ul>
+<ul class="simple">
+<li><p>identifikasi missing values</p></li>
+</ul>
+<ol class="arabic simple">
+<li><p>menentukan missing values pada setiap kolom</p></li>
+</ol>
+<ol class="arabic simple" start="2">
+<li><p>menentukan tipe tipe data setiap kolom/fitur/variabel</p></li>
+</ol>
+<ul class="simple">
+<li><p>fitur sepal length : tipe numerik</p></li>
+</ul>
+<p>fitur ini adalah panjang dari sepal atau bagian yang menonjol dari bunga yang melindungi kelopak. Diukur dalam centimeter (cm).</p>
+<ul class="simple">
+<li><p>fitur sepal width : tipe numerik</p></li>
+</ul>
+<p>fitur ini adalah lebar dari sepal bunga iris. Diukur dalam centimeter (cm).</p>
+<ul class="simple">
+<li><p>fitur petal length : tipe numerik</p></li>
+</ul>
+<p>fitur ini adalah panjang dari kelopak atau bagian bunga yang berwarna. Diukur dalam centimeter (cm)</p>
+<ul class="simple">
+<li><p>fitur petal width : tipe numerik</p></li>
+</ul>
+<p>fitur ini adalah lebar dari kelopak bunga iris. Diukur dalam centimeter (cm).</p>
+<section id="menampilkan-data-sepal-length-yang-kosong">
+<h2>2.1 Menampilkan data sepal length yang kosong<a class="headerlink" href="#menampilkan-data-sepal-length-yang-kosong" title="Link to this heading">#</a></h2>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">df_4</span> <span class="o">=</span> <span class="n">_deepnote_execute_sql</span><span class="p">(</span><span class="s1">&#39;SELECT * FROM `iris` WHERE `sepal.length` IS NULL;</span><span class="se">\n</span><span class="s1">&#39;</span><span class="p">,</span> <span class="s1">&#39;SQL_882C57EC_1473_40A7_BE13_C15EDFB4392E&#39;</span><span class="p">,</span> <span class="n">audit_sql_comment</span><span class="o">=</span><span class="s1">&#39;&#39;</span><span class="p">,</span> <span class="n">sql_cache_mode</span><span class="o">=</span><span class="s1">&#39;cache_disabled&#39;</span><span class="p">)</span>
+<span class="n">df_4</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_html"><div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>id</th>
+      <th>sepal.length</th>
+      <th>sepal.width</th>
+      <th>petal.length</th>
+      <th>petal.width</th>
+      <th>variety</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>13</td>
+      <td>None</td>
+      <td>3.0</td>
+      <td>1.4</td>
+      <td>0.1</td>
+      <td>Setosa</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>17</td>
+      <td>None</td>
+      <td>3.9</td>
+      <td>1.3</td>
+      <td>0.4</td>
+      <td>Setosa</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>23</td>
+      <td>None</td>
+      <td>3.6</td>
+      <td>1.0</td>
+      <td>0.2</td>
+      <td>Setosa</td>
+    </tr>
+    <tr>
+      <th>3</th>
+      <td>59</td>
+      <td>None</td>
+      <td>2.9</td>
+      <td>4.6</td>
+      <td>1.3</td>
+      <td>Versicolor</td>
+    </tr>
+    <tr>
+      <th>4</th>
+      <td>72</td>
+      <td>None</td>
+      <td>2.8</td>
+      <td>4.0</td>
+      <td>1.3</td>
+      <td>Versicolor</td>
+    </tr>
+    <tr>
+      <th>5</th>
+      <td>120</td>
+      <td>None</td>
+      <td>2.2</td>
+      <td>5.0</td>
+      <td>1.5</td>
+      <td>Virginica</td>
+    </tr>
+  </tbody>
+</table>
+</div></div></div>
+</div>
+</section>
+<section id="menampilkan-data-sepal-length-setosa-yang-kosong">
+<h2>2.2 Menampilkan data sepal length “setosa” yang kosong<a class="headerlink" href="#menampilkan-data-sepal-length-setosa-yang-kosong" title="Link to this heading">#</a></h2>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">df_5</span> <span class="o">=</span> <span class="n">_deepnote_execute_sql</span><span class="p">(</span><span class="s1">&#39;SELECT * FROM `iris` WHERE `sepal.length` IS NULL AND variety= </span><span class="se">\&#39;</span><span class="s1">Setosa</span><span class="se">\&#39;</span><span class="s1">;&#39;</span><span class="p">,</span> <span class="s1">&#39;SQL_882C57EC_1473_40A7_BE13_C15EDFB4392E&#39;</span><span class="p">,</span> <span class="n">audit_sql_comment</span><span class="o">=</span><span class="s1">&#39;&#39;</span><span class="p">,</span> <span class="n">sql_cache_mode</span><span class="o">=</span><span class="s1">&#39;cache_disabled&#39;</span><span class="p">)</span>
+<span class="n">df_5</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_html"><div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>id</th>
+      <th>sepal.length</th>
+      <th>sepal.width</th>
+      <th>petal.length</th>
+      <th>petal.width</th>
+      <th>variety</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>13</td>
+      <td>None</td>
+      <td>3.0</td>
+      <td>1.4</td>
+      <td>0.1</td>
+      <td>Setosa</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>17</td>
+      <td>None</td>
+      <td>3.9</td>
+      <td>1.3</td>
+      <td>0.4</td>
+      <td>Setosa</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>23</td>
+      <td>None</td>
+      <td>3.6</td>
+      <td>1.0</td>
+      <td>0.2</td>
+      <td>Setosa</td>
+    </tr>
+  </tbody>
+</table>
+</div></div></div>
+</div>
+</section>
+<section id="menampilkan-data-sepal-length-setosa-yang-tidak-kosong">
+<h2>2.3 Menampilkan data sepal length “setosa” yang  tidak kosong<a class="headerlink" href="#menampilkan-data-sepal-length-setosa-yang-tidak-kosong" title="Link to this heading">#</a></h2>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">df_6</span> <span class="o">=</span> <span class="n">_deepnote_execute_sql</span><span class="p">(</span><span class="s1">&#39;SELECT * FROM `iris` WHERE `sepal.length` IS NOT NULL AND variety= </span><span class="se">\&#39;</span><span class="s1">Setosa</span><span class="se">\&#39;</span><span class="s1">;&#39;</span><span class="p">,</span> <span class="s1">&#39;SQL_882C57EC_1473_40A7_BE13_C15EDFB4392E&#39;</span><span class="p">,</span> <span class="n">audit_sql_comment</span><span class="o">=</span><span class="s1">&#39;&#39;</span><span class="p">,</span> <span class="n">sql_cache_mode</span><span class="o">=</span><span class="s1">&#39;cache_disabled&#39;</span><span class="p">)</span>
+<span class="n">df_6</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_html"><div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>id</th>
+      <th>sepal.length</th>
+      <th>sepal.width</th>
+      <th>petal.length</th>
+      <th>petal.width</th>
+      <th>variety</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>1</td>
+      <td>5.1</td>
+      <td>3.5</td>
+      <td>1.4</td>
+      <td>0.2</td>
+      <td>Setosa</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>2</td>
+      <td>4.9</td>
+      <td>3.0</td>
+      <td>1.4</td>
+      <td>0.2</td>
+      <td>Setosa</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>3</td>
+      <td>4.9</td>
+      <td>3.2</td>
+      <td>1.3</td>
+      <td>0.2</td>
+      <td>Setosa</td>
+    </tr>
+    <tr>
+      <th>3</th>
+      <td>4</td>
+      <td>4.6</td>
+      <td>3.1</td>
+      <td>1.5</td>
+      <td>0.2</td>
+      <td>Setosa</td>
+    </tr>
+    <tr>
+      <th>4</th>
+      <td>5</td>
+      <td>5.0</td>
+      <td>3.6</td>
+      <td>1.4</td>
+      <td>0.2</td>
+      <td>Setosa</td>
+    </tr>
+    <tr>
+      <th>5</th>
+      <td>6</td>
+      <td>4.9</td>
+      <td>3.9</td>
+      <td>1.7</td>
+      <td>0.4</td>
+      <td>Setosa</td>
+    </tr>
+    <tr>
+      <th>6</th>
+      <td>7</td>
+      <td>4.6</td>
+      <td>3.4</td>
+      <td>1.4</td>
+      <td>0.3</td>
+      <td>Setosa</td>
+    </tr>
+    <tr>
+      <th>7</th>
+      <td>8</td>
+      <td>5.0</td>
+      <td>3.4</td>
+      <td>1.5</td>
+      <td>0.2</td>
+      <td>Setosa</td>
+    </tr>
+    <tr>
+      <th>8</th>
+      <td>9</td>
+      <td>4.4</td>
+      <td>2.9</td>
+      <td>1.4</td>
+      <td>0.2</td>
+      <td>Setosa</td>
+    </tr>
+    <tr>
+      <th>9</th>
+      <td>10</td>
+      <td>4.9</td>
+      <td>3.1</td>
+      <td>1.5</td>
+      <td>0.1</td>
+      <td>Setosa</td>
+    </tr>
+    <tr>
+      <th>10</th>
+      <td>11</td>
+      <td>5.4</td>
+      <td>3.7</td>
+      <td>1.5</td>
+      <td>0.2</td>
+      <td>Setosa</td>
+    </tr>
+    <tr>
+      <th>11</th>
+      <td>12</td>
+      <td>4.8</td>
+      <td>3.4</td>
+      <td>1.6</td>
+      <td>0.2</td>
+      <td>Setosa</td>
+    </tr>
+    <tr>
+      <th>12</th>
+      <td>14</td>
+      <td>4.3</td>
+      <td>3.0</td>
+      <td>1.1</td>
+      <td>0.1</td>
+      <td>Setosa</td>
+    </tr>
+    <tr>
+      <th>13</th>
+      <td>15</td>
+      <td>5.8</td>
+      <td>4.0</td>
+      <td>1.2</td>
+      <td>0.2</td>
+      <td>Setosa</td>
+    </tr>
+    <tr>
+      <th>14</th>
+      <td>16</td>
+      <td>5.7</td>
+      <td>4.4</td>
+      <td>1.5</td>
+      <td>0.4</td>
+      <td>Setosa</td>
+    </tr>
+    <tr>
+      <th>15</th>
+      <td>18</td>
+      <td>5.1</td>
+      <td>3.5</td>
+      <td>1.4</td>
+      <td>0.3</td>
+      <td>Setosa</td>
+    </tr>
+    <tr>
+      <th>16</th>
+      <td>19</td>
+      <td>5.7</td>
+      <td>3.8</td>
+      <td>1.7</td>
+      <td>0.3</td>
+      <td>Setosa</td>
+    </tr>
+    <tr>
+      <th>17</th>
+      <td>20</td>
+      <td>5.1</td>
+      <td>3.8</td>
+      <td>1.5</td>
+      <td>0.3</td>
+      <td>Setosa</td>
+    </tr>
+    <tr>
+      <th>18</th>
+      <td>21</td>
+      <td>4.9</td>
+      <td>3.4</td>
+      <td>1.7</td>
+      <td>0.2</td>
+      <td>Setosa</td>
+    </tr>
+    <tr>
+      <th>19</th>
+      <td>22</td>
+      <td>5.1</td>
+      <td>3.7</td>
+      <td>1.5</td>
+      <td>0.4</td>
+      <td>Setosa</td>
+    </tr>
+    <tr>
+      <th>20</th>
+      <td>24</td>
+      <td>5.1</td>
+      <td>3.3</td>
+      <td>1.7</td>
+      <td>0.5</td>
+      <td>Setosa</td>
+    </tr>
+    <tr>
+      <th>21</th>
+      <td>25</td>
+      <td>4.8</td>
+      <td>3.4</td>
+      <td>1.9</td>
+      <td>0.2</td>
+      <td>Setosa</td>
+    </tr>
+    <tr>
+      <th>22</th>
+      <td>26</td>
+      <td>5.0</td>
+      <td>3.0</td>
+      <td>1.6</td>
+      <td>0.2</td>
+      <td>Setosa</td>
+    </tr>
+    <tr>
+      <th>23</th>
+      <td>27</td>
+      <td>5.0</td>
+      <td>3.4</td>
+      <td>1.6</td>
+      <td>0.4</td>
+      <td>Setosa</td>
+    </tr>
+    <tr>
+      <th>24</th>
+      <td>28</td>
+      <td>5.2</td>
+      <td>3.5</td>
+      <td>1.5</td>
+      <td>0.2</td>
+      <td>Setosa</td>
+    </tr>
+    <tr>
+      <th>25</th>
+      <td>29</td>
+      <td>5.2</td>
+      <td>3.4</td>
+      <td>1.4</td>
+      <td>0.2</td>
+      <td>Setosa</td>
+    </tr>
+    <tr>
+      <th>26</th>
+      <td>30</td>
+      <td>4.7</td>
+      <td>3.2</td>
+      <td>1.6</td>
+      <td>0.2</td>
+      <td>Setosa</td>
+    </tr>
+    <tr>
+      <th>27</th>
+      <td>31</td>
+      <td>4.8</td>
+      <td>3.1</td>
+      <td>1.6</td>
+      <td>0.2</td>
+      <td>Setosa</td>
+    </tr>
+    <tr>
+      <th>28</th>
+      <td>32</td>
+      <td>5.4</td>
+      <td>3.4</td>
+      <td>1.5</td>
+      <td>0.4</td>
+      <td>Setosa</td>
+    </tr>
+    <tr>
+      <th>29</th>
+      <td>33</td>
+      <td>5.2</td>
+      <td>4.1</td>
+      <td>1.5</td>
+      <td>0.1</td>
+      <td>Setosa</td>
+    </tr>
+    <tr>
+      <th>30</th>
+      <td>34</td>
+      <td>5.5</td>
+      <td>4.2</td>
+      <td>1.4</td>
+      <td>0.2</td>
+      <td>Setosa</td>
+    </tr>
+    <tr>
+      <th>31</th>
+      <td>35</td>
+      <td>4.9</td>
+      <td>3.1</td>
+      <td>1.5</td>
+      <td>0.2</td>
+      <td>Setosa</td>
+    </tr>
+    <tr>
+      <th>32</th>
+      <td>36</td>
+      <td>5.0</td>
+      <td>3.2</td>
+      <td>1.2</td>
+      <td>0.2</td>
+      <td>Setosa</td>
+    </tr>
+    <tr>
+      <th>33</th>
+      <td>37</td>
+      <td>5.5</td>
+      <td>3.5</td>
+      <td>1.3</td>
+      <td>0.2</td>
+      <td>Setosa</td>
+    </tr>
+    <tr>
+      <th>34</th>
+      <td>38</td>
+      <td>4.9</td>
+      <td>3.6</td>
+      <td>1.4</td>
+      <td>0.1</td>
+      <td>Setosa</td>
+    </tr>
+    <tr>
+      <th>35</th>
+      <td>39</td>
+      <td>4.4</td>
+      <td>3.0</td>
+      <td>1.3</td>
+      <td>0.2</td>
+      <td>Setosa</td>
+    </tr>
+    <tr>
+      <th>36</th>
+      <td>40</td>
+      <td>5.1</td>
+      <td>3.4</td>
+      <td>1.5</td>
+      <td>0.2</td>
+      <td>Setosa</td>
+    </tr>
+    <tr>
+      <th>37</th>
+      <td>41</td>
+      <td>5.0</td>
+      <td>3.5</td>
+      <td>1.3</td>
+      <td>0.3</td>
+      <td>Setosa</td>
+    </tr>
+    <tr>
+      <th>38</th>
+      <td>42</td>
+      <td>4.5</td>
+      <td>2.3</td>
+      <td>1.3</td>
+      <td>0.3</td>
+      <td>Setosa</td>
+    </tr>
+    <tr>
+      <th>39</th>
+      <td>43</td>
+      <td>4.4</td>
+      <td>3.2</td>
+      <td>1.3</td>
+      <td>0.2</td>
+      <td>Setosa</td>
+    </tr>
+    <tr>
+      <th>40</th>
+      <td>44</td>
+      <td>5.0</td>
+      <td>3.5</td>
+      <td>1.6</td>
+      <td>0.6</td>
+      <td>Setosa</td>
+    </tr>
+    <tr>
+      <th>41</th>
+      <td>45</td>
+      <td>5.1</td>
+      <td>3.8</td>
+      <td>1.9</td>
+      <td>0.4</td>
+      <td>Setosa</td>
+    </tr>
+    <tr>
+      <th>42</th>
+      <td>46</td>
+      <td>4.8</td>
+      <td>3.0</td>
+      <td>1.4</td>
+      <td>0.3</td>
+      <td>Setosa</td>
+    </tr>
+    <tr>
+      <th>43</th>
+      <td>47</td>
+      <td>5.1</td>
+      <td>3.8</td>
+      <td>1.6</td>
+      <td>0.2</td>
+      <td>Setosa</td>
+    </tr>
+    <tr>
+      <th>44</th>
+      <td>48</td>
+      <td>4.6</td>
+      <td>3.2</td>
+      <td>1.4</td>
+      <td>0.2</td>
+      <td>Setosa</td>
+    </tr>
+    <tr>
+      <th>45</th>
+      <td>49</td>
+      <td>5.3</td>
+      <td>3.7</td>
+      <td>1.5</td>
+      <td>0.2</td>
+      <td>Setosa</td>
+    </tr>
+    <tr>
+      <th>46</th>
+      <td>50</td>
+      <td>5.0</td>
+      <td>3.3</td>
+      <td>1.4</td>
+      <td>0.2</td>
+      <td>Setosa</td>
+    </tr>
+  </tbody>
+</table>
+</div></div></div>
+</div>
+</section>
+<section id="menampilkan-mean">
+<h2>2.4 Menampilkan MEAN<a class="headerlink" href="#menampilkan-mean" title="Link to this heading">#</a></h2>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">df_7</span> <span class="o">=</span> <span class="n">_deepnote_execute_sql</span><span class="p">(</span><span class="s1">&#39;SELECT AVG(`sepal.length`) AS mean FROM iris WHERE `sepal.length` IS NOT NULL AND variety= </span><span class="se">\&#39;</span><span class="s1">Setosa</span><span class="se">\&#39;</span><span class="s1">;&#39;</span><span class="p">,</span> <span class="s1">&#39;SQL_882C57EC_1473_40A7_BE13_C15EDFB4392E&#39;</span><span class="p">,</span> <span class="n">audit_sql_comment</span><span class="o">=</span><span class="s1">&#39;&#39;</span><span class="p">,</span> <span class="n">sql_cache_mode</span><span class="o">=</span><span class="s1">&#39;cache_disabled&#39;</span><span class="p">)</span>
+<span class="n">df_7</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_html"><div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>mean</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>4.99362</td>
+    </tr>
+  </tbody>
+</table>
+</div></div></div>
+</div>
+</section>
+<section id="memasukkan-dan-update-data-baru">
+<h2>2.5 Memasukkan dan update data baru<a class="headerlink" href="#memasukkan-dan-update-data-baru" title="Link to this heading">#</a></h2>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">df_8</span> <span class="o">=</span> <span class="n">_deepnote_execute_sql</span><span class="p">(</span><span class="s1">&#39;UPDATE iris SET `sepal.length` = 4.9 WHERE `sepal.length` IS NULL AND variety = </span><span class="se">\&#39;</span><span class="s1">Setosa</span><span class="se">\&#39;</span><span class="s1">;&#39;</span><span class="p">,</span> <span class="s1">&#39;SQL_882C57EC_1473_40A7_BE13_C15EDFB4392E&#39;</span><span class="p">,</span> <span class="n">audit_sql_comment</span><span class="o">=</span><span class="s1">&#39;&#39;</span><span class="p">,</span> <span class="n">sql_cache_mode</span><span class="o">=</span><span class="s1">&#39;cache_disabled&#39;</span><span class="p">)</span>
+<span class="n">df_8</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">df_9</span> <span class="o">=</span> <span class="n">_deepnote_execute_sql</span><span class="p">(</span><span class="s1">&#39;SELECT * FROM `iris` WHERE `sepal.length` IS NOT NULL AND variety = </span><span class="se">\&#39;</span><span class="s1">Setosa</span><span class="se">\&#39;</span><span class="s1">;</span><span class="se">\n</span><span class="s1">&#39;</span><span class="p">,</span> <span class="s1">&#39;SQL_882C57EC_1473_40A7_BE13_C15EDFB4392E&#39;</span><span class="p">,</span> <span class="n">audit_sql_comment</span><span class="o">=</span><span class="s1">&#39;&#39;</span><span class="p">,</span> <span class="n">sql_cache_mode</span><span class="o">=</span><span class="s1">&#39;cache_disabled&#39;</span><span class="p">)</span>
+<span class="n">df_9</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_html"><div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>id</th>
+      <th>sepal.length</th>
+      <th>sepal.width</th>
+      <th>petal.length</th>
+      <th>petal.width</th>
+      <th>variety</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>1</td>
+      <td>5.1</td>
+      <td>3.5</td>
+      <td>1.4</td>
+      <td>0.2</td>
+      <td>Setosa</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>2</td>
+      <td>4.9</td>
+      <td>3.0</td>
+      <td>1.4</td>
+      <td>0.2</td>
+      <td>Setosa</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>3</td>
+      <td>4.9</td>
+      <td>3.2</td>
+      <td>1.3</td>
+      <td>0.2</td>
+      <td>Setosa</td>
+    </tr>
+    <tr>
+      <th>3</th>
+      <td>4</td>
+      <td>4.6</td>
+      <td>3.1</td>
+      <td>1.5</td>
+      <td>0.2</td>
+      <td>Setosa</td>
+    </tr>
+    <tr>
+      <th>4</th>
+      <td>5</td>
+      <td>5.0</td>
+      <td>3.6</td>
+      <td>1.4</td>
+      <td>0.2</td>
+      <td>Setosa</td>
+    </tr>
+    <tr>
+      <th>5</th>
+      <td>6</td>
+      <td>4.9</td>
+      <td>3.9</td>
+      <td>1.7</td>
+      <td>0.4</td>
+      <td>Setosa</td>
+    </tr>
+    <tr>
+      <th>6</th>
+      <td>7</td>
+      <td>4.6</td>
+      <td>3.4</td>
+      <td>1.4</td>
+      <td>0.3</td>
+      <td>Setosa</td>
+    </tr>
+    <tr>
+      <th>7</th>
+      <td>8</td>
+      <td>5.0</td>
+      <td>3.4</td>
+      <td>1.5</td>
+      <td>0.2</td>
+      <td>Setosa</td>
+    </tr>
+    <tr>
+      <th>8</th>
+      <td>9</td>
+      <td>4.4</td>
+      <td>2.9</td>
+      <td>1.4</td>
+      <td>0.2</td>
+      <td>Setosa</td>
+    </tr>
+    <tr>
+      <th>9</th>
+      <td>10</td>
+      <td>4.9</td>
+      <td>3.1</td>
+      <td>1.5</td>
+      <td>0.1</td>
+      <td>Setosa</td>
+    </tr>
+    <tr>
+      <th>10</th>
+      <td>11</td>
+      <td>5.4</td>
+      <td>3.7</td>
+      <td>1.5</td>
+      <td>0.2</td>
+      <td>Setosa</td>
+    </tr>
+    <tr>
+      <th>11</th>
+      <td>12</td>
+      <td>4.8</td>
+      <td>3.4</td>
+      <td>1.6</td>
+      <td>0.2</td>
+      <td>Setosa</td>
+    </tr>
+    <tr>
+      <th>12</th>
+      <td>13</td>
+      <td>4.9</td>
+      <td>3.0</td>
+      <td>1.4</td>
+      <td>0.1</td>
+      <td>Setosa</td>
+    </tr>
+    <tr>
+      <th>13</th>
+      <td>14</td>
+      <td>4.3</td>
+      <td>3.0</td>
+      <td>1.1</td>
+      <td>0.1</td>
+      <td>Setosa</td>
+    </tr>
+    <tr>
+      <th>14</th>
+      <td>15</td>
+      <td>5.8</td>
+      <td>4.0</td>
+      <td>1.2</td>
+      <td>0.2</td>
+      <td>Setosa</td>
+    </tr>
+    <tr>
+      <th>15</th>
+      <td>16</td>
+      <td>5.7</td>
+      <td>4.4</td>
+      <td>1.5</td>
+      <td>0.4</td>
+      <td>Setosa</td>
+    </tr>
+    <tr>
+      <th>16</th>
+      <td>17</td>
+      <td>4.9</td>
+      <td>3.9</td>
+      <td>1.3</td>
+      <td>0.4</td>
+      <td>Setosa</td>
+    </tr>
+    <tr>
+      <th>17</th>
+      <td>18</td>
+      <td>5.1</td>
+      <td>3.5</td>
+      <td>1.4</td>
+      <td>0.3</td>
+      <td>Setosa</td>
+    </tr>
+    <tr>
+      <th>18</th>
+      <td>19</td>
+      <td>5.7</td>
+      <td>3.8</td>
+      <td>1.7</td>
+      <td>0.3</td>
+      <td>Setosa</td>
+    </tr>
+    <tr>
+      <th>19</th>
+      <td>20</td>
+      <td>5.1</td>
+      <td>3.8</td>
+      <td>1.5</td>
+      <td>0.3</td>
+      <td>Setosa</td>
+    </tr>
+    <tr>
+      <th>20</th>
+      <td>21</td>
+      <td>4.9</td>
+      <td>3.4</td>
+      <td>1.7</td>
+      <td>0.2</td>
+      <td>Setosa</td>
+    </tr>
+    <tr>
+      <th>21</th>
+      <td>22</td>
+      <td>5.1</td>
+      <td>3.7</td>
+      <td>1.5</td>
+      <td>0.4</td>
+      <td>Setosa</td>
+    </tr>
+    <tr>
+      <th>22</th>
+      <td>23</td>
+      <td>4.9</td>
+      <td>3.6</td>
+      <td>1.0</td>
+      <td>0.2</td>
+      <td>Setosa</td>
+    </tr>
+    <tr>
+      <th>23</th>
+      <td>24</td>
+      <td>5.1</td>
+      <td>3.3</td>
+      <td>1.7</td>
+      <td>0.5</td>
+      <td>Setosa</td>
+    </tr>
+    <tr>
+      <th>24</th>
+      <td>25</td>
+      <td>4.8</td>
+      <td>3.4</td>
+      <td>1.9</td>
+      <td>0.2</td>
+      <td>Setosa</td>
+    </tr>
+    <tr>
+      <th>25</th>
+      <td>26</td>
+      <td>5.0</td>
+      <td>3.0</td>
+      <td>1.6</td>
+      <td>0.2</td>
+      <td>Setosa</td>
+    </tr>
+    <tr>
+      <th>26</th>
+      <td>27</td>
+      <td>5.0</td>
+      <td>3.4</td>
+      <td>1.6</td>
+      <td>0.4</td>
+      <td>Setosa</td>
+    </tr>
+    <tr>
+      <th>27</th>
+      <td>28</td>
+      <td>5.2</td>
+      <td>3.5</td>
+      <td>1.5</td>
+      <td>0.2</td>
+      <td>Setosa</td>
+    </tr>
+    <tr>
+      <th>28</th>
+      <td>29</td>
+      <td>5.2</td>
+      <td>3.4</td>
+      <td>1.4</td>
+      <td>0.2</td>
+      <td>Setosa</td>
+    </tr>
+    <tr>
+      <th>29</th>
+      <td>30</td>
+      <td>4.7</td>
+      <td>3.2</td>
+      <td>1.6</td>
+      <td>0.2</td>
+      <td>Setosa</td>
+    </tr>
+    <tr>
+      <th>30</th>
+      <td>31</td>
+      <td>4.8</td>
+      <td>3.1</td>
+      <td>1.6</td>
+      <td>0.2</td>
+      <td>Setosa</td>
+    </tr>
+    <tr>
+      <th>31</th>
+      <td>32</td>
+      <td>5.4</td>
+      <td>3.4</td>
+      <td>1.5</td>
+      <td>0.4</td>
+      <td>Setosa</td>
+    </tr>
+    <tr>
+      <th>32</th>
+      <td>33</td>
+      <td>5.2</td>
+      <td>4.1</td>
+      <td>1.5</td>
+      <td>0.1</td>
+      <td>Setosa</td>
+    </tr>
+    <tr>
+      <th>33</th>
+      <td>34</td>
+      <td>5.5</td>
+      <td>4.2</td>
+      <td>1.4</td>
+      <td>0.2</td>
+      <td>Setosa</td>
+    </tr>
+    <tr>
+      <th>34</th>
+      <td>35</td>
+      <td>4.9</td>
+      <td>3.1</td>
+      <td>1.5</td>
+      <td>0.2</td>
+      <td>Setosa</td>
+    </tr>
+    <tr>
+      <th>35</th>
+      <td>36</td>
+      <td>5.0</td>
+      <td>3.2</td>
+      <td>1.2</td>
+      <td>0.2</td>
+      <td>Setosa</td>
+    </tr>
+    <tr>
+      <th>36</th>
+      <td>37</td>
+      <td>5.5</td>
+      <td>3.5</td>
+      <td>1.3</td>
+      <td>0.2</td>
+      <td>Setosa</td>
+    </tr>
+    <tr>
+      <th>37</th>
+      <td>38</td>
+      <td>4.9</td>
+      <td>3.6</td>
+      <td>1.4</td>
+      <td>0.1</td>
+      <td>Setosa</td>
+    </tr>
+    <tr>
+      <th>38</th>
+      <td>39</td>
+      <td>4.4</td>
+      <td>3.0</td>
+      <td>1.3</td>
+      <td>0.2</td>
+      <td>Setosa</td>
+    </tr>
+    <tr>
+      <th>39</th>
+      <td>40</td>
+      <td>5.1</td>
+      <td>3.4</td>
+      <td>1.5</td>
+      <td>0.2</td>
+      <td>Setosa</td>
+    </tr>
+    <tr>
+      <th>40</th>
+      <td>41</td>
+      <td>5.0</td>
+      <td>3.5</td>
+      <td>1.3</td>
+      <td>0.3</td>
+      <td>Setosa</td>
+    </tr>
+    <tr>
+      <th>41</th>
+      <td>42</td>
+      <td>4.5</td>
+      <td>2.3</td>
+      <td>1.3</td>
+      <td>0.3</td>
+      <td>Setosa</td>
+    </tr>
+    <tr>
+      <th>42</th>
+      <td>43</td>
+      <td>4.4</td>
+      <td>3.2</td>
+      <td>1.3</td>
+      <td>0.2</td>
+      <td>Setosa</td>
+    </tr>
+    <tr>
+      <th>43</th>
+      <td>44</td>
+      <td>5.0</td>
+      <td>3.5</td>
+      <td>1.6</td>
+      <td>0.6</td>
+      <td>Setosa</td>
+    </tr>
+    <tr>
+      <th>44</th>
+      <td>45</td>
+      <td>5.1</td>
+      <td>3.8</td>
+      <td>1.9</td>
+      <td>0.4</td>
+      <td>Setosa</td>
+    </tr>
+    <tr>
+      <th>45</th>
+      <td>46</td>
+      <td>4.8</td>
+      <td>3.0</td>
+      <td>1.4</td>
+      <td>0.3</td>
+      <td>Setosa</td>
+    </tr>
+    <tr>
+      <th>46</th>
+      <td>47</td>
+      <td>5.1</td>
+      <td>3.8</td>
+      <td>1.6</td>
+      <td>0.2</td>
+      <td>Setosa</td>
+    </tr>
+    <tr>
+      <th>47</th>
+      <td>48</td>
+      <td>4.6</td>
+      <td>3.2</td>
+      <td>1.4</td>
+      <td>0.2</td>
+      <td>Setosa</td>
+    </tr>
+    <tr>
+      <th>48</th>
+      <td>49</td>
+      <td>5.3</td>
+      <td>3.7</td>
+      <td>1.5</td>
+      <td>0.2</td>
+      <td>Setosa</td>
+    </tr>
+    <tr>
+      <th>49</th>
+      <td>50</td>
+      <td>5.0</td>
+      <td>3.3</td>
+      <td>1.4</td>
+      <td>0.2</td>
+      <td>Setosa</td>
+    </tr>
+  </tbody>
+</table>
+</div></div></div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">df_10</span> <span class="o">=</span> <span class="n">_deepnote_execute_sql</span><span class="p">(</span><span class="s1">&#39;SELECT * FROM `iris` WHERE `sepal.length` IS NULL AND variety = </span><span class="se">\&#39;</span><span class="s1">Setosa</span><span class="se">\&#39;</span><span class="s1">;&#39;</span><span class="p">,</span> <span class="s1">&#39;SQL_882C57EC_1473_40A7_BE13_C15EDFB4392E&#39;</span><span class="p">,</span> <span class="n">audit_sql_comment</span><span class="o">=</span><span class="s1">&#39;&#39;</span><span class="p">,</span> <span class="n">sql_cache_mode</span><span class="o">=</span><span class="s1">&#39;cache_disabled&#39;</span><span class="p">)</span>
+<span class="n">df_10</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_html"><div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>id</th>
+      <th>sepal.length</th>
+      <th>sepal.width</th>
+      <th>petal.length</th>
+      <th>petal.width</th>
+      <th>variety</th>
+    </tr>
+  </thead>
+  <tbody>
+  </tbody>
+</table>
+</div></div></div>
+</div>
+</section>
+</section>
+<section class="tex2jax_ignore mathjax_ignore" id="implementasi-pada-missing-value-knn">
+<h1>3. Implementasi pada missing value KNN<a class="headerlink" href="#implementasi-pada-missing-value-knn" title="Link to this heading">#</a></h1>
+<ul class="simple">
+<li><p>Penjelasan KNN</p></li>
+</ul>
+<p>Algoritma K-Nearest Neighbors (KNN) adalah salah satu algoritma yang paling sederhana dan populer dalam pembelajaran mesin untuk masalah klasifikasi dan regresi. Ini adalah metode yang berbasis instan (instance-based) dan non-parametrik yang digunakan untuk memprediksi kelas dari suatu sampel berdasarkan kelas-kelas sampel yang berdekatan dengannya.</p>
+<ul class="simple">
+<li><p>Perhitungan manual</p></li>
+</ul>
+<ul class="simple">
+<li><p>implementasikan pada missing values pada data</p></li>
+</ul>
+<ul class="simple">
+<li><p>implementasikan pada missing values menggunakan library scikit learn <a class="reference external" href="https://scikit-learn.org/stable/modules/generated/sklearn.neighbors.KNeighborsClassifier.html">https://scikit-learn.org/stable/modules/generated/sklearn.neighbors.KNeighborsClassifier.html</a></p></li>
+</ul>
+<p>Rumus Euclidean Distance</p>
+<div class="math notranslate nohighlight">
+\[d(x,y) - \sqrt((\Sigma_i^n(x_i - y_i)^2))\]</div>
+<section id="perhitungan-manual-excel">
+<h2>3.1 Perhitungan Manual Excel<a class="headerlink" href="#perhitungan-manual-excel" title="Link to this heading">#</a></h2>
+<section id="persiapkan-data">
+<h3>3.1.1 Persiapkan Data<a class="headerlink" href="#persiapkan-data" title="Link to this heading">#</a></h3>
+<p>Data yang dipakai adalah data iris. dimana terdapat 150 data dengan 3 vaerietas. 1 varietas ada sebanyak 50 data</p>
+</section>
+<section id="missing-values-dan-rata-rata">
+<h3>3.1.2 Missing Values dan rata rata<a class="headerlink" href="#missing-values-dan-rata-rata" title="Link to this heading">#</a></h3>
+<img src="Capture.PNGp.PNG" width="" align="" /></section>
+<section id="menghitung-jarak-rank-dan-tetangga-terdekat">
+<h3>3.1.3  Menghitung Jarak,Rank, dan tetangga terdekat<a class="headerlink" href="#menghitung-jarak-rank-dan-tetangga-terdekat" title="Link to this heading">#</a></h3>
+<img src="jarak.PNG" width="" align="" /><p>Karena nilai yang sering muncul adalah 5 maka isi dari missing values adalah 5</p>
+</section>
+</section>
+<section id="perhitungan-scikit">
+<h2>3.2 Perhitungan Scikit<a class="headerlink" href="#perhitungan-scikit" title="Link to this heading">#</a></h2>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
+
+<span class="n">data1</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="s2">&quot;cloud (3).csv&quot;</span><span class="p">)</span>
+<span class="n">data1</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_html"><div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>id</th>
+      <th>sepal.length</th>
+      <th>sepal.width</th>
+      <th>variety</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>1</td>
+      <td>5.1</td>
+      <td>3.5</td>
+      <td>Setosa</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>2</td>
+      <td>4.9</td>
+      <td>3.0</td>
+      <td>Setosa</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>3</td>
+      <td>4.7</td>
+      <td>3.2</td>
+      <td>Setosa</td>
+    </tr>
+    <tr>
+      <th>3</th>
+      <td>4</td>
+      <td>4.6</td>
+      <td>3.1</td>
+      <td>Setosa</td>
+    </tr>
+    <tr>
+      <th>4</th>
+      <td>5</td>
+      <td>5.0</td>
+      <td>3.6</td>
+      <td>Setosa</td>
+    </tr>
+    <tr>
+      <th>...</th>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+    </tr>
+    <tr>
+      <th>145</th>
+      <td>146</td>
+      <td>6.7</td>
+      <td>3.0</td>
+      <td>Virginica</td>
+    </tr>
+    <tr>
+      <th>146</th>
+      <td>147</td>
+      <td>6.3</td>
+      <td>2.5</td>
+      <td>Virginica</td>
+    </tr>
+    <tr>
+      <th>147</th>
+      <td>148</td>
+      <td>6.5</td>
+      <td>3.0</td>
+      <td>Virginica</td>
+    </tr>
+    <tr>
+      <th>148</th>
+      <td>149</td>
+      <td>6.2</td>
+      <td>3.4</td>
+      <td>Virginica</td>
+    </tr>
+    <tr>
+      <th>149</th>
+      <td>150</td>
+      <td>5.9</td>
+      <td>3.0</td>
+      <td>Virginica</td>
+    </tr>
+  </tbody>
+</table>
+<p>150 rows × 4 columns</p>
+</div></div></div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
+
+<span class="n">data2</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="s2">&quot;postgre_2.csv&quot;</span><span class="p">)</span>
+<span class="n">data2</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_html"><div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>id</th>
+      <th>petal.length</th>
+      <th>petal.width</th>
+      <th>variety</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>1</td>
+      <td>1.4</td>
+      <td>0.2</td>
+      <td>Setosa</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>2</td>
+      <td>1.4</td>
+      <td>0.2</td>
+      <td>Setosa</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>3</td>
+      <td>1.3</td>
+      <td>0.2</td>
+      <td>Setosa</td>
+    </tr>
+    <tr>
+      <th>3</th>
+      <td>4</td>
+      <td>1.5</td>
+      <td>0.2</td>
+      <td>Setosa</td>
+    </tr>
+    <tr>
+      <th>4</th>
+      <td>5</td>
+      <td>1.4</td>
+      <td>0.2</td>
+      <td>Setosa</td>
+    </tr>
+    <tr>
+      <th>...</th>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+    </tr>
+    <tr>
+      <th>145</th>
+      <td>146</td>
+      <td>5.2</td>
+      <td>2.3</td>
+      <td>Virginica</td>
+    </tr>
+    <tr>
+      <th>146</th>
+      <td>147</td>
+      <td>5.0</td>
+      <td>1.9</td>
+      <td>Virginica</td>
+    </tr>
+    <tr>
+      <th>147</th>
+      <td>148</td>
+      <td>5.2</td>
+      <td>2.0</td>
+      <td>Virginica</td>
+    </tr>
+    <tr>
+      <th>148</th>
+      <td>149</td>
+      <td>5.4</td>
+      <td>2.3</td>
+      <td>Virginica</td>
+    </tr>
+    <tr>
+      <th>149</th>
+      <td>150</td>
+      <td>5.1</td>
+      <td>1.8</td>
+      <td>Virginica</td>
+    </tr>
+  </tbody>
+</table>
+<p>150 rows × 4 columns</p>
+</div></div></div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
+
+<span class="n">data</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">merge</span><span class="p">(</span><span class="n">data1</span><span class="p">,</span> <span class="n">data2</span><span class="p">,</span> <span class="n">on</span><span class="o">=</span><span class="s1">&#39;id&#39;</span><span class="p">,</span> <span class="n">how</span><span class="o">=</span><span class="s1">&#39;inner&#39;</span><span class="p">)</span>
+<span class="n">data</span><span class="o">.</span><span class="n">head</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">data</span><span class="p">))</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_html"><div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>id</th>
+      <th>sepal.length</th>
+      <th>sepal.width</th>
+      <th>variety_x</th>
+      <th>petal.length</th>
+      <th>petal.width</th>
+      <th>variety_y</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>1</td>
+      <td>5.1</td>
+      <td>3.5</td>
+      <td>Setosa</td>
+      <td>1.4</td>
+      <td>0.2</td>
+      <td>Setosa</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>2</td>
+      <td>4.9</td>
+      <td>3.0</td>
+      <td>Setosa</td>
+      <td>1.4</td>
+      <td>0.2</td>
+      <td>Setosa</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>3</td>
+      <td>4.7</td>
+      <td>3.2</td>
+      <td>Setosa</td>
+      <td>1.3</td>
+      <td>0.2</td>
+      <td>Setosa</td>
+    </tr>
+    <tr>
+      <th>3</th>
+      <td>4</td>
+      <td>4.6</td>
+      <td>3.1</td>
+      <td>Setosa</td>
+      <td>1.5</td>
+      <td>0.2</td>
+      <td>Setosa</td>
+    </tr>
+    <tr>
+      <th>4</th>
+      <td>5</td>
+      <td>5.0</td>
+      <td>3.6</td>
+      <td>Setosa</td>
+      <td>1.4</td>
+      <td>0.2</td>
+      <td>Setosa</td>
+    </tr>
+    <tr>
+      <th>...</th>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+    </tr>
+    <tr>
+      <th>145</th>
+      <td>146</td>
+      <td>6.7</td>
+      <td>3.0</td>
+      <td>Virginica</td>
+      <td>5.2</td>
+      <td>2.3</td>
+      <td>Virginica</td>
+    </tr>
+    <tr>
+      <th>146</th>
+      <td>147</td>
+      <td>6.3</td>
+      <td>2.5</td>
+      <td>Virginica</td>
+      <td>5.0</td>
+      <td>1.9</td>
+      <td>Virginica</td>
+    </tr>
+    <tr>
+      <th>147</th>
+      <td>148</td>
+      <td>6.5</td>
+      <td>3.0</td>
+      <td>Virginica</td>
+      <td>5.2</td>
+      <td>2.0</td>
+      <td>Virginica</td>
+    </tr>
+    <tr>
+      <th>148</th>
+      <td>149</td>
+      <td>6.2</td>
+      <td>3.4</td>
+      <td>Virginica</td>
+      <td>5.4</td>
+      <td>2.3</td>
+      <td>Virginica</td>
+    </tr>
+    <tr>
+      <th>149</th>
+      <td>150</td>
+      <td>5.9</td>
+      <td>3.0</td>
+      <td>Virginica</td>
+      <td>5.1</td>
+      <td>1.8</td>
+      <td>Virginica</td>
+    </tr>
+  </tbody>
+</table>
+<p>150 rows × 7 columns</p>
+</div></div></div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
+
+<span class="c1"># Membaca data dari file CSV atau membuat DataFrame `data` dengan cara lain</span>
+<span class="n">data</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">merge</span><span class="p">(</span><span class="n">data1</span><span class="p">,</span> <span class="n">data2</span><span class="p">,</span> <span class="n">on</span><span class="o">=</span><span class="s1">&#39;id&#39;</span><span class="p">,</span> <span class="n">how</span><span class="o">=</span><span class="s1">&#39;inner&#39;</span><span class="p">)</span>
+<span class="c1"># Melakukan perubahan pada DataFrame `data`</span>
+<span class="n">data</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="n">data</span><span class="p">[</span><span class="s2">&quot;id&quot;</span><span class="p">]</span> <span class="o">==</span> <span class="mi">2</span><span class="p">,</span> <span class="s1">&#39;sepal.length&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span>
+<span class="n">data</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="n">data</span><span class="p">[</span><span class="s2">&quot;id&quot;</span><span class="p">]</span> <span class="o">==</span> <span class="mi">11</span><span class="p">,</span> <span class="s1">&#39;sepal.length&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span>
+<span class="n">data</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="n">data</span><span class="p">[</span><span class="s2">&quot;id&quot;</span><span class="p">]</span> <span class="o">==</span> <span class="mi">21</span><span class="p">,</span> <span class="s1">&#39;sepal.length&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span>
+<span class="n">data</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="n">data</span><span class="p">[</span><span class="s2">&quot;id&quot;</span><span class="p">]</span> <span class="o">==</span> <span class="mi">39</span><span class="p">,</span> <span class="s1">&#39;sepal.length&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span>
+<span class="n">data</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="n">data</span><span class="p">[</span><span class="s2">&quot;id&quot;</span><span class="p">]</span> <span class="o">==</span> <span class="mi">48</span><span class="p">,</span> <span class="s1">&#39;sepal.length&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span>
+
+
+<span class="c1"># Cetak dataframe data setelah memperbarui nilai dalam kolom &quot;sepal.length&quot;</span>
+<span class="n">data</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_html"><div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>id</th>
+      <th>sepal.length</th>
+      <th>sepal.width</th>
+      <th>variety_x</th>
+      <th>petal.length</th>
+      <th>petal.width</th>
+      <th>variety_y</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>1</td>
+      <td>5.1</td>
+      <td>3.5</td>
+      <td>Setosa</td>
+      <td>1.4</td>
+      <td>0.2</td>
+      <td>Setosa</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>2</td>
+      <td>NaN</td>
+      <td>3.0</td>
+      <td>Setosa</td>
+      <td>1.4</td>
+      <td>0.2</td>
+      <td>Setosa</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>3</td>
+      <td>4.7</td>
+      <td>3.2</td>
+      <td>Setosa</td>
+      <td>1.3</td>
+      <td>0.2</td>
+      <td>Setosa</td>
+    </tr>
+    <tr>
+      <th>3</th>
+      <td>4</td>
+      <td>4.6</td>
+      <td>3.1</td>
+      <td>Setosa</td>
+      <td>1.5</td>
+      <td>0.2</td>
+      <td>Setosa</td>
+    </tr>
+    <tr>
+      <th>4</th>
+      <td>5</td>
+      <td>5.0</td>
+      <td>3.6</td>
+      <td>Setosa</td>
+      <td>1.4</td>
+      <td>0.2</td>
+      <td>Setosa</td>
+    </tr>
+    <tr>
+      <th>...</th>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+    </tr>
+    <tr>
+      <th>145</th>
+      <td>146</td>
+      <td>6.7</td>
+      <td>3.0</td>
+      <td>Virginica</td>
+      <td>5.2</td>
+      <td>2.3</td>
+      <td>Virginica</td>
+    </tr>
+    <tr>
+      <th>146</th>
+      <td>147</td>
+      <td>6.3</td>
+      <td>2.5</td>
+      <td>Virginica</td>
+      <td>5.0</td>
+      <td>1.9</td>
+      <td>Virginica</td>
+    </tr>
+    <tr>
+      <th>147</th>
+      <td>148</td>
+      <td>6.5</td>
+      <td>3.0</td>
+      <td>Virginica</td>
+      <td>5.2</td>
+      <td>2.0</td>
+      <td>Virginica</td>
+    </tr>
+    <tr>
+      <th>148</th>
+      <td>149</td>
+      <td>6.2</td>
+      <td>3.4</td>
+      <td>Virginica</td>
+      <td>5.4</td>
+      <td>2.3</td>
+      <td>Virginica</td>
+    </tr>
+    <tr>
+      <th>149</th>
+      <td>150</td>
+      <td>5.9</td>
+      <td>3.0</td>
+      <td>Virginica</td>
+      <td>5.1</td>
+      <td>1.8</td>
+      <td>Virginica</td>
+    </tr>
+  </tbody>
+</table>
+<p>150 rows × 7 columns</p>
+</div></div></div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
+
+<span class="c1"># Mendeteksi baris-baris yang tidak mengandung nilai null</span>
+<span class="n">not_null_data</span> <span class="o">=</span> <span class="n">data</span><span class="p">[</span><span class="n">data</span><span class="o">.</span><span class="n">notnull</span><span class="p">()</span><span class="o">.</span><span class="n">all</span><span class="p">(</span><span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">)]</span>
+
+<span class="c1"># Menampilkan semua baris yang tidak mengandung nilai null</span>
+<span class="n">not_null_data</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_html"><div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>id</th>
+      <th>sepal.length</th>
+      <th>sepal.width</th>
+      <th>variety_x</th>
+      <th>petal.length</th>
+      <th>petal.width</th>
+      <th>variety_y</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>1</td>
+      <td>5.1</td>
+      <td>3.5</td>
+      <td>Setosa</td>
+      <td>1.4</td>
+      <td>0.2</td>
+      <td>Setosa</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>3</td>
+      <td>4.7</td>
+      <td>3.2</td>
+      <td>Setosa</td>
+      <td>1.3</td>
+      <td>0.2</td>
+      <td>Setosa</td>
+    </tr>
+    <tr>
+      <th>3</th>
+      <td>4</td>
+      <td>4.6</td>
+      <td>3.1</td>
+      <td>Setosa</td>
+      <td>1.5</td>
+      <td>0.2</td>
+      <td>Setosa</td>
+    </tr>
+    <tr>
+      <th>4</th>
+      <td>5</td>
+      <td>5.0</td>
+      <td>3.6</td>
+      <td>Setosa</td>
+      <td>1.4</td>
+      <td>0.2</td>
+      <td>Setosa</td>
+    </tr>
+    <tr>
+      <th>5</th>
+      <td>6</td>
+      <td>5.4</td>
+      <td>3.9</td>
+      <td>Setosa</td>
+      <td>1.7</td>
+      <td>0.4</td>
+      <td>Setosa</td>
+    </tr>
+    <tr>
+      <th>...</th>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+    </tr>
+    <tr>
+      <th>145</th>
+      <td>146</td>
+      <td>6.7</td>
+      <td>3.0</td>
+      <td>Virginica</td>
+      <td>5.2</td>
+      <td>2.3</td>
+      <td>Virginica</td>
+    </tr>
+    <tr>
+      <th>146</th>
+      <td>147</td>
+      <td>6.3</td>
+      <td>2.5</td>
+      <td>Virginica</td>
+      <td>5.0</td>
+      <td>1.9</td>
+      <td>Virginica</td>
+    </tr>
+    <tr>
+      <th>147</th>
+      <td>148</td>
+      <td>6.5</td>
+      <td>3.0</td>
+      <td>Virginica</td>
+      <td>5.2</td>
+      <td>2.0</td>
+      <td>Virginica</td>
+    </tr>
+    <tr>
+      <th>148</th>
+      <td>149</td>
+      <td>6.2</td>
+      <td>3.4</td>
+      <td>Virginica</td>
+      <td>5.4</td>
+      <td>2.3</td>
+      <td>Virginica</td>
+    </tr>
+    <tr>
+      <th>149</th>
+      <td>150</td>
+      <td>5.9</td>
+      <td>3.0</td>
+      <td>Virginica</td>
+      <td>5.1</td>
+      <td>1.8</td>
+      <td>Virginica</td>
+    </tr>
+  </tbody>
+</table>
+<p>145 rows × 7 columns</p>
+</div></div></div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
+<span class="n">data</span> <span class="o">=</span> <span class="n">data</span><span class="o">.</span><span class="n">drop</span><span class="p">([</span><span class="s1">&#39;id&#39;</span><span class="p">,</span> <span class="s1">&#39;variety_x&#39;</span><span class="p">],</span> <span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+
+<span class="n">data</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_html"><div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>sepal.length</th>
+      <th>sepal.width</th>
+      <th>petal.length</th>
+      <th>petal.width</th>
+      <th>variety_y</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>5.1</td>
+      <td>3.5</td>
+      <td>1.4</td>
+      <td>0.2</td>
+      <td>Setosa</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>NaN</td>
+      <td>3.0</td>
+      <td>1.4</td>
+      <td>0.2</td>
+      <td>Setosa</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>4.7</td>
+      <td>3.2</td>
+      <td>1.3</td>
+      <td>0.2</td>
+      <td>Setosa</td>
+    </tr>
+    <tr>
+      <th>3</th>
+      <td>4.6</td>
+      <td>3.1</td>
+      <td>1.5</td>
+      <td>0.2</td>
+      <td>Setosa</td>
+    </tr>
+    <tr>
+      <th>4</th>
+      <td>5.0</td>
+      <td>3.6</td>
+      <td>1.4</td>
+      <td>0.2</td>
+      <td>Setosa</td>
+    </tr>
+    <tr>
+      <th>...</th>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+    </tr>
+    <tr>
+      <th>145</th>
+      <td>6.7</td>
+      <td>3.0</td>
+      <td>5.2</td>
+      <td>2.3</td>
+      <td>Virginica</td>
+    </tr>
+    <tr>
+      <th>146</th>
+      <td>6.3</td>
+      <td>2.5</td>
+      <td>5.0</td>
+      <td>1.9</td>
+      <td>Virginica</td>
+    </tr>
+    <tr>
+      <th>147</th>
+      <td>6.5</td>
+      <td>3.0</td>
+      <td>5.2</td>
+      <td>2.0</td>
+      <td>Virginica</td>
+    </tr>
+    <tr>
+      <th>148</th>
+      <td>6.2</td>
+      <td>3.4</td>
+      <td>5.4</td>
+      <td>2.3</td>
+      <td>Virginica</td>
+    </tr>
+    <tr>
+      <th>149</th>
+      <td>5.9</td>
+      <td>3.0</td>
+      <td>5.1</td>
+      <td>1.8</td>
+      <td>Virginica</td>
+    </tr>
+  </tbody>
+</table>
+<p>150 rows × 5 columns</p>
+</div></div></div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
+<span class="kn">from</span> <span class="nn">sklearn.impute</span> <span class="kn">import</span> <span class="n">SimpleImputer</span>
+
+<span class="c1"># Membuat copy dataframe pada variabel lain</span>
+<span class="n">data_mean</span> <span class="o">=</span> <span class="n">data</span><span class="o">.</span><span class="n">copy</span><span class="p">(</span><span class="n">deep</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+
+<span class="c1"># Mencari nilai mean</span>
+<span class="n">mean</span> <span class="o">=</span> <span class="nb">round</span><span class="p">(</span><span class="n">data_mean</span><span class="p">[</span><span class="s1">&#39;sepal.length&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">mean</span><span class="p">(),</span> <span class="mi">1</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s1">&#39;Nilai mean adalah = &#39;</span><span class="p">,</span> <span class="n">mean</span><span class="p">)</span>
+
+<span class="c1"># Inisialisasi imputer dengan strategi mean</span>
+<span class="n">imputer</span> <span class="o">=</span> <span class="n">SimpleImputer</span><span class="p">(</span><span class="n">strategy</span><span class="o">=</span><span class="s1">&#39;mean&#39;</span><span class="p">)</span>
+
+<span class="c1"># Imputasi missing value dengan mean</span>
+<span class="n">data_mean</span><span class="p">[</span><span class="s1">&#39;sepal.length&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">imputer</span><span class="o">.</span><span class="n">fit_transform</span><span class="p">(</span><span class="n">data_mean</span><span class="p">[[</span><span class="s1">&#39;sepal.length&#39;</span><span class="p">]])</span>
+
+<span class="n">data_mean</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Nilai mean adalah =  5.9
+</pre></div>
+</div>
+<div class="output text_html"><div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>sepal.length</th>
+      <th>sepal.width</th>
+      <th>petal.length</th>
+      <th>petal.width</th>
+      <th>variety_y</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>5.100000</td>
+      <td>3.5</td>
+      <td>1.4</td>
+      <td>0.2</td>
+      <td>Setosa</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>5.874483</td>
+      <td>3.0</td>
+      <td>1.4</td>
+      <td>0.2</td>
+      <td>Setosa</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>4.700000</td>
+      <td>3.2</td>
+      <td>1.3</td>
+      <td>0.2</td>
+      <td>Setosa</td>
+    </tr>
+    <tr>
+      <th>3</th>
+      <td>4.600000</td>
+      <td>3.1</td>
+      <td>1.5</td>
+      <td>0.2</td>
+      <td>Setosa</td>
+    </tr>
+    <tr>
+      <th>4</th>
+      <td>5.000000</td>
+      <td>3.6</td>
+      <td>1.4</td>
+      <td>0.2</td>
+      <td>Setosa</td>
+    </tr>
+    <tr>
+      <th>...</th>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+    </tr>
+    <tr>
+      <th>145</th>
+      <td>6.700000</td>
+      <td>3.0</td>
+      <td>5.2</td>
+      <td>2.3</td>
+      <td>Virginica</td>
+    </tr>
+    <tr>
+      <th>146</th>
+      <td>6.300000</td>
+      <td>2.5</td>
+      <td>5.0</td>
+      <td>1.9</td>
+      <td>Virginica</td>
+    </tr>
+    <tr>
+      <th>147</th>
+      <td>6.500000</td>
+      <td>3.0</td>
+      <td>5.2</td>
+      <td>2.0</td>
+      <td>Virginica</td>
+    </tr>
+    <tr>
+      <th>148</th>
+      <td>6.200000</td>
+      <td>3.4</td>
+      <td>5.4</td>
+      <td>2.3</td>
+      <td>Virginica</td>
+    </tr>
+    <tr>
+      <th>149</th>
+      <td>5.900000</td>
+      <td>3.0</td>
+      <td>5.1</td>
+      <td>1.8</td>
+      <td>Virginica</td>
+    </tr>
+  </tbody>
+</table>
+<p>150 rows × 5 columns</p>
+</div></div></div>
+</div>
+</section>
+</section>
+<section class="tex2jax_ignore mathjax_ignore" id="deteksi-outlier">
+<h1>4. DETEKSI OUTLIER()<a class="headerlink" href="#deteksi-outlier" title="Link to this heading">#</a></h1>
+<section id="penjelasan">
+<h2>4.1 Penjelasan<a class="headerlink" href="#penjelasan" title="Link to this heading">#</a></h2>
+<p>Deteksi outlier merupakan proses krusial dalam analisis data yang bertujuan untuk mengidentifikasi dan menangani titik data yang secara signifikan berbeda dari pola umum dalam kumpulan data. Metode-metode deteksi outlier meliputi pendekatan statistik seperti Interquartile Range (IQR) dan Z-Score, algoritma machine learning seperti Isolation Forest dan One-Class SVM, serta metode jarak seperti K-Nearest Neighbors (KNN) dan Local Outlier Factor (LOF). Tujuan utama dari deteksi outlier adalah membersihkan data, mendeteksi anomali, dan menghindari bias dalam analisis statistik dan pemodelan. Dengan menggunakan metode deteksi outlier yang sesuai, kita dapat meningkatkan kualitas dan validitas analisis data yang dilakukan.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+<span class="kn">from</span> <span class="nn">sklearn.neighbors</span> <span class="kn">import</span> <span class="n">LocalOutlierFactor</span>
+<span class="n">X</span> <span class="o">=</span> <span class="p">[[</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">],</span> <span class="p">[</span><span class="mi">0</span><span class="p">,</span><span class="mi">1</span><span class="p">],</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span><span class="mi">1</span><span class="p">],</span> <span class="p">[</span><span class="mi">3</span><span class="p">,</span><span class="mi">0</span><span class="p">]]</span>
+<span class="n">clf</span> <span class="o">=</span> <span class="n">LocalOutlierFactor</span><span class="p">(</span><span class="n">n_neighbors</span><span class="o">=</span><span class="mi">2</span><span class="p">)</span>
+<span class="n">clf</span><span class="o">.</span><span class="n">fit_predict</span><span class="p">(</span><span class="n">X</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>array([ 1,  1,  1, -1])
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section id="menghitung-manual-deteksi-outlier">
+<h2>4.2 Menghitung manual deteksi outlier<a class="headerlink" href="#menghitung-manual-deteksi-outlier" title="Link to this heading">#</a></h2>
+<p>contoh data dengan tipe numerik 3 fitur jumlah data 10 k=2, menghitung manual deteksi outlier menggunakan metode jarak Manhattan (Manhattan distance):</p>
+<img src="outlier.PNG" width="" align="" /><section id="menghitung-jarak-dan-menetukan-k-neighbour">
+<h3>4.2.1 MENGHITUNG JARAK DAN MENETUKAN K-NEIGHBOUR<a class="headerlink" href="#menghitung-jarak-dan-menetukan-k-neighbour" title="Link to this heading">#</a></h3>
+<p>Untuk menghitung jarak Manhattan antara setiap pasang data, langkah-langkahnya adalah sebagai berikut:</p>
+<ul class="simple">
+<li><p>Tentukan titik koordinat (x, y) dari setiap data.
+Hitung selisih absolut antara koordinat x dan y dari setiap pasang data.
+Jumlahkan selisih absolut tersebut untuk mendapatkan jarak Manhattan.</p></li>
+</ul>
+<div class="math notranslate nohighlight">
+\[d(x,y) = \sqrt{\sum_{i=1}^{n}(x_i - y_i)}\]</div>
+<img src="dist.PNG" width="" align="" /><p>Untuk menentukan 2 tetangga terdekat
+(k=2) untuk setiap data</p>
+<p><span class="math notranslate nohighlight">\(\text{dist}(a) =\text{dist}(a, f) = 12\)</span> <br />
+<span class="math notranslate nohighlight">\(\text{dist}(a) =\text{dist}(a, b) = 14\)</span></p>
+<p><span class="math notranslate nohighlight">\(\text{dist}(b) =\text{dist}(b, f) = 8\)</span> <br />
+<span class="math notranslate nohighlight">\(\text{dist}(b) =\text{dist}(b, a) = 14\)</span></p>
+<p><span class="math notranslate nohighlight">\(\text{dist}(c) =\text{dist}(c, j) = 13\)</span> <br />
+<span class="math notranslate nohighlight">\(\text{dist}(c) =\text{dist}(c, e) = 17\)</span></p>
+<p><span class="math notranslate nohighlight">\(\text{dist}(d) =\text{dist}(d, g) = 8\)</span> <br />
+<span class="math notranslate nohighlight">\(\text{dist}(d) =\text{dist}(d, a) = 26\)</span></p>
+<p><span class="math notranslate nohighlight">\(\text{dist}(e) =\text{dist}(e, f) = 16\)</span> <br />
+<span class="math notranslate nohighlight">\(\text{dist}(e) =\text{dist}(e, c) = 17\)</span></p>
+<p><span class="math notranslate nohighlight">\(\text{dist}(f) =\text{dist}(f, b) = 8\)</span> <br />
+<span class="math notranslate nohighlight">\(\text{dist}(f) =\text{dist}(f, a) = 12\)</span></p>
+<p><span class="math notranslate nohighlight">\(\text{dist}(g) =\text{dist}(g, d) = 8\)</span> <br />
+<span class="math notranslate nohighlight">\(\text{dist}(g) =\text{dist}(g, a) = 26\)</span></p>
+<p><span class="math notranslate nohighlight">\(\text{dist}(h) =\text{dist}(h, i) = 7\)</span> <br />
+<span class="math notranslate nohighlight">\(\text{dist}(h) =\text{dist}(h, f) = 22\)</span></p>
+<p><span class="math notranslate nohighlight">\(\text{dist}(i) =\text{dist}(i, h) = 7\)</span> <br />
+<span class="math notranslate nohighlight">\(\text{dist}(i) =\text{dist}(i, f) = 23\)</span></p>
+<p><span class="math notranslate nohighlight">\(\text{dist}(j) =\text{dist}(j, c) = 13\)</span> <br />
+<span class="math notranslate nohighlight">\(\text{dist}(j) =\text{dist}(j, e) = 30\)</span></p>
+</section>
+<section id="reachability-density-rd">
+<h3>4.2.2 REACHABILITY DENSITY (RD)<a class="headerlink" href="#reachability-density-rd" title="Link to this heading">#</a></h3>
+<p>K-jarak dari
+Xj
+“ merujuk pada jarak dari
+Xj
+ke tetangga terdekatnya ke-
+K. Ini dapat dihitung menggunakan metrik jarak yang dipilih, dengan</p>
+<p>K sebagai jumlah tetangga terdekat. Rumus:</p>
+<p>Dari data diatas diperoleh data dibawah ini</p>
+<img src="RD.PNG" width="" align="" /></section>
+<section id="local-reachability-density-lrd">
+<h3>4.2.3 LOCAL REACHABILITY DENSITY(LRD)<a class="headerlink" href="#local-reachability-density-lrd" title="Link to this heading">#</a></h3>
+<img src="LRD.PNG" width="" align="" /></section>
+<section id="local-outlier-factor-lof">
+<h3>4.2.4 LOCAL OUTLIER FACTOR(LOF)<a class="headerlink" href="#local-outlier-factor-lof" title="Link to this heading">#</a></h3>
+<img src="LOF.PNG" width="" align="" /></section>
+</section>
+<section id="menghitung-menggunakan-library-scikit">
+<h2>4.3 Menghitung menggunakan library Scikit<a class="headerlink" href="#menghitung-menggunakan-library-scikit" title="Link to this heading">#</a></h2>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">sklearn.neighbors</span> <span class="kn">import</span> <span class="n">LocalOutlierFactor</span>
+
+<span class="n">X</span> <span class="o">=</span> <span class="p">[</span>
+    <span class="p">(</span><span class="mi">85</span><span class="p">,</span><span class="mi">78</span><span class="p">,</span>	<span class="mi">92</span><span class="p">),</span>
+    <span class="p">(</span><span class="mi">79</span><span class="p">,</span>	<span class="mi">82</span><span class="p">,</span>	<span class="mi">88</span><span class="p">),</span>
+    <span class="p">(</span><span class="mi">90</span><span class="p">,</span>	<span class="mi">95</span><span class="p">,</span>	<span class="mi">75</span><span class="p">),</span>
+    <span class="p">(</span><span class="mi">92</span><span class="p">,</span>	<span class="mi">91</span><span class="p">,</span>	<span class="mi">98</span><span class="p">),</span>
+    <span class="p">(</span><span class="mi">88</span><span class="p">,</span>	<span class="mi">85</span><span class="p">,</span>	<span class="mi">80</span><span class="p">),</span>
+    <span class="p">(</span><span class="mi">82</span><span class="p">,</span>	<span class="mi">80</span><span class="p">,</span>	<span class="mi">85</span><span class="p">),</span>
+    <span class="p">(</span><span class="mi">95</span><span class="p">,</span>	<span class="mi">92</span><span class="p">,</span>	<span class="mi">94</span><span class="p">),</span>
+    <span class="p">(</span><span class="mi">75</span><span class="p">,</span>	<span class="mi">78</span><span class="p">,</span>	<span class="mi">72</span><span class="p">),</span>
+    <span class="p">(</span><span class="mi">78</span><span class="p">,</span>	<span class="mi">76</span><span class="p">,</span>	<span class="mi">70</span><span class="p">),</span>
+    <span class="p">(</span><span class="mi">90</span><span class="p">,</span>	<span class="mi">98</span><span class="p">,</span>	<span class="mi">65</span><span class="p">)</span>
+
+<span class="p">]</span>
+
+<span class="n">lof</span> <span class="o">=</span> <span class="n">LocalOutlierFactor</span><span class="p">(</span><span class="n">n_neighbors</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span> <span class="n">contamination</span><span class="o">=</span><span class="mf">0.1</span><span class="p">)</span>
+
+<span class="n">y_pred</span> <span class="o">=</span> <span class="n">lof</span><span class="o">.</span><span class="n">fit_predict</span><span class="p">(</span><span class="n">X</span><span class="p">)</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Predicted table:&quot;</span><span class="p">,</span> <span class="n">y_pred</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Negative LOF scores:&quot;</span><span class="p">,</span> <span class="o">-</span><span class="n">lof</span><span class="o">.</span><span class="n">negative_outlier_factor_</span><span class="p">)</span>  <span class="c1"># Ubah tanda negatif untuk mendapatkan nilai LOF positif</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Predicted table: [ 1  1  1 -1  1  1  1  1  1  1]
+Negative LOF scores: [0.98871593 0.98871593 1.25873912 1.52615868 0.95497627 1.02308923
+ 1.30178149 1.43773016 1.43773016 1.25873912]
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+</section>
+<section class="tex2jax_ignore mathjax_ignore" id="naive-bayes-classifier">
+<h1>5. NAIVE BAYES CLASSIFIER<a class="headerlink" href="#naive-bayes-classifier" title="Link to this heading">#</a></h1>
+<section id="id1">
+<h2>5.1 Penjelasan<a class="headerlink" href="#id1" title="Link to this heading">#</a></h2>
+<p>Naive Bayes, atau kadang disebut Naïve Bayes Classifier, adalah algoritma machine learning probabilistik yang digunakan dalam berbagai macam tugas klasifikasi. Naive Bayes Classifier adalah sebuah algoritma klasifikasi yang didasarkan pada teorema Bayes dengan asumsi sederhana (naive) bahwa setiap fitur dalam dataset adalah independen satu sama lain</p>
+<img src="Bayes_rule.png" width="" align="" /><p>Dimana:</p>
+<ul class="simple">
+<li><p>(P(C|X)) adalah posteriori probabilitas dari hipotesis (C) (class (C)) setelah diberikan data (X).</p></li>
+<li><p>(P(X|C)) adalah likelihood, yaitu probabilitas untuk mendapatkan data (X) jika hipotesis (C) benar.</p></li>
+<li><p>(P(C)) adalah prior, yaitu probabilitas awal dari hipotesis (C) sebelum data (X) diamati.</p></li>
+<li><p>(P(X)) adalah evidence atau bukti, yaitu probabilitas dari data (X) secara keseluruhan.</p></li>
+</ul>
+<p>Dengan menggunakan Teorema Bayes, kita dapat membuat prediksi bahwa data (X) adalah anggota dari kelas (C2) jika dan hanya jika probabilitas (P(C2|X)) lebih tinggi daripada semua (P(C_k|X)) untuk semua kelas (k).</p>
+<section id="supervised-learning-vs-unsupervised-learning">
+<h3>5.1.1 Supervised Learning vs Unsupervised Learning<a class="headerlink" href="#supervised-learning-vs-unsupervised-learning" title="Link to this heading">#</a></h3>
+<p>Dalam supervised learning, model dipelajari dari data yang berisi pasangan input-output yang telah ditentukan sebelumnya. Artinya, setiap contoh dalam data latih memiliki label yang sesuai atau target yang ingin diprediksi. Dalam unsupervised learning, model dipelajari dari data yang tidak memiliki label atau target yang ditentukan sebelumnya. Tujuannya adalah untuk menemukan pola atau struktur dalam data tanpa bantuan label. Dengan kata lain, algoritma unsupervised learning harus mempelajari representasi yang berguna dari data tanpa mengetahui jawaban yang benar.</p>
+</section>
+<section id="klasifikasi-dan-prediksi">
+<h3>5.1.2 KLASIFIKASI DAN PREDIKSI<a class="headerlink" href="#klasifikasi-dan-prediksi" title="Link to this heading">#</a></h3>
+<p>A. Klasifikasi</p>
+<p>Memprediksi label kelas (baik diskrit maupun kontinu) melibatkan pembangunan model yang dapat mengklasifikasikan data berdasarkan informasi yang diberikan oleh atribut-atributnya. Proses membangun model melibatkan penggunaan data pelatihan yang sudah dilengkapi dengan nilai label kelas sebagai dasar untuk melatih model. Selama proses pelatihan, model belajar pola atau hubungan antara atribut-atribut input dan nilai label kelas yang sesuai. Setelah model dilatih, ia dapat digunakan untuk mengklasifikasikan data baru dengan memberikan prediksi label kelas berdasarkan atribut-atributnya</p>
+<p>B. Prediksi</p>
+<p>Prediksi melibatkan penggunaan model yang telah dibangun untuk membuat perkiraan atau estimasi terhadap nilai dari suatu variabel target berdasarkan nilai-nilai atribut yang diberikan. Proses ini seringkali terkait dengan variabel target yang bersifat kontinu, seperti prediksi harga saham, suhu, atau jumlah penjualan.</p>
+</section>
+</section>
+<section id="perhitungan-naive-bayes-menggunakan-code">
+<h2>5.2 PERHITUNGAN NAIVE BAYES MENGGUNAKAN CODE<a class="headerlink" href="#perhitungan-naive-bayes-menggunakan-code" title="Link to this heading">#</a></h2>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+<span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
+<span class="kn">from</span> <span class="nn">sklearn.datasets</span> <span class="kn">import</span> <span class="n">load_iris</span>
+<span class="kn">from</span> <span class="nn">sklearn.model_selection</span> <span class="kn">import</span> <span class="n">train_test_split</span>
+<span class="kn">from</span> <span class="nn">sklearn.naive_bayes</span> <span class="kn">import</span> <span class="n">GaussianNB</span>
+<span class="kn">from</span> <span class="nn">sklearn.metrics</span> <span class="kn">import</span> <span class="n">accuracy_score</span>
+<span class="kn">import</span> <span class="nn">csv</span>
+
+<span class="c1"># Load the iris dataset</span>
+<span class="n">iris</span> <span class="o">=</span> <span class="n">load_iris</span><span class="p">()</span>
+<span class="n">X</span> <span class="o">=</span> <span class="n">iris</span><span class="o">.</span><span class="n">data</span>
+<span class="n">y</span> <span class="o">=</span> <span class="n">iris</span><span class="o">.</span><span class="n">target</span>
+
+<span class="c1"># Initialize the Naive Bayes classifier</span>
+<span class="n">nb_classifier</span> <span class="o">=</span> <span class="n">GaussianNB</span><span class="p">()</span>
+
+<span class="c1"># Split the data into training and test sets (80% training, 20% test)</span>
+<span class="n">X_train</span><span class="p">,</span> <span class="n">X_test</span><span class="p">,</span> <span class="n">y_train</span><span class="p">,</span> <span class="n">y_test</span> <span class="o">=</span> <span class="n">train_test_split</span><span class="p">(</span><span class="n">X</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">test_size</span><span class="o">=</span><span class="mf">0.2</span><span class="p">,</span> <span class="n">random_state</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
+
+<span class="c1"># Train the classifier</span>
+<span class="n">nb_classifier</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">X_train</span><span class="p">,</span> <span class="n">y_train</span><span class="p">)</span>
+
+<span class="c1"># Predict the classes for the training set</span>
+<span class="n">y_test_pred</span> <span class="o">=</span> <span class="n">nb_classifier</span><span class="o">.</span><span class="n">predict</span><span class="p">(</span><span class="n">X_test</span><span class="p">)</span>
+
+<span class="c1"># Combine features and target into one list</span>
+<span class="n">train_data</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">column_stack</span><span class="p">((</span><span class="n">X_train</span><span class="p">,</span> <span class="n">y_train</span><span class="p">))</span>
+
+<span class="c1"># Write the training data to a CSV file</span>
+<span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="s1">&#39;training_data.csv&#39;</span><span class="p">,</span> <span class="n">mode</span><span class="o">=</span><span class="s1">&#39;w&#39;</span><span class="p">,</span> <span class="n">newline</span><span class="o">=</span><span class="s1">&#39;&#39;</span><span class="p">)</span> <span class="k">as</span> <span class="n">file</span><span class="p">:</span>
+    <span class="n">writer</span> <span class="o">=</span> <span class="n">csv</span><span class="o">.</span><span class="n">writer</span><span class="p">(</span><span class="n">file</span><span class="p">)</span>
+    <span class="c1"># Write header</span>
+    <span class="n">writer</span><span class="o">.</span><span class="n">writerow</span><span class="p">(</span><span class="n">iris</span><span class="o">.</span><span class="n">feature_names</span> <span class="o">+</span> <span class="p">[</span><span class="s1">&#39;Target&#39;</span><span class="p">])</span>
+    <span class="c1"># Write data</span>
+    <span class="n">writer</span><span class="o">.</span><span class="n">writerows</span><span class="p">(</span><span class="n">train_data</span><span class="p">)</span>
+
+<span class="n">training_accuracy</span> <span class="o">=</span> <span class="n">accuracy_score</span><span class="p">(</span><span class="n">y_test</span><span class="p">,</span> <span class="n">y_test_pred</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Training Accuracy:&quot;</span><span class="p">,</span> <span class="n">training_accuracy</span><span class="p">)</span>
+
+<span class="n">sample</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([[</span><span class="mf">7.0</span><span class="p">,</span> <span class="mf">3.2</span><span class="p">,</span> <span class="mf">4.7</span><span class="p">,</span> <span class="mf">1.4</span><span class="p">]])</span>
+
+
+<span class="n">prediction</span> <span class="o">=</span> <span class="n">nb_classifier</span><span class="o">.</span><span class="n">predict</span><span class="p">(</span><span class="n">sample</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s1">&#39;Prediction:&#39;</span><span class="p">,</span> <span class="n">prediction</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Training Accuracy: 0.9666666666666667
+Prediction: [1]
+</pre></div>
+</div>
+</div>
+</div>
+<p>Hasil “Training Accuracy: 0.9666666666666667” dari model Naive Bayes yang dilatih dengan data iris menunjukkan bahwa model tersebut memiliki tingkat akurasi sekitar 96.67% dalam mengklasifikasikan data. Prediksi [1] merujuk pada kelas atau label dari data iris. Yaitu merujuk pada jenis “versicolor”.</p>
+</section>
+<section id="perhitungan-manual-naive-bayes-menggunakan-excel">
+<h2>5.3 PERHITUNGAN MANUAL NAIVE BAYES MENGGUNAKAN EXCEL<a class="headerlink" href="#perhitungan-manual-naive-bayes-menggunakan-excel" title="Link to this heading">#</a></h2>
+<section id="id2">
+<h3>5.3.1 Persiapkan Data<a class="headerlink" href="#id2" title="Link to this heading">#</a></h3>
+<img src="setosa_page-0001.jpg" width="" align="" /><p>Data yang saya pakai menggunakan data pelatihan Iris yang sebagian besar, yaitu 80%, untuk melatih model Naive Bayes. Dengan menggunakan sebagian besar data ini, model dapat belajar dari variasi yang luas dalam fitur-fitur seperti sepal length, sepal width petal length, petal width dan memiliki spesies yaitu 0 untuk setosa, 1 untuk versicolor, dan 2 untuk virginica.Berikut datanya</p>
+</section>
+<section id="menghitung-probabilitas-setiap-kelas-variety">
+<h3>5.3.2 Menghitung Probabilitas Setiap Kelas / Variety<a class="headerlink" href="#menghitung-probabilitas-setiap-kelas-variety" title="Link to this heading">#</a></h3>
+<img src="PROSES 1.PNG" width="" align="" /><p>Setelah itu hitung jumlah kemunculan fitur dalam setiap kelas dan bagi dengan jumlah total contoh dalam kelas.</p>
+</section>
+<section id="menghitung-mean-dari-fitur-setiap-kelas">
+<h3>5.3.3 Menghitung MEAN dari Fitur Setiap Kelas<a class="headerlink" href="#menghitung-mean-dari-fitur-setiap-kelas" title="Link to this heading">#</a></h3>
+<img src="PROSES 2.PNG" width="" align="" /><p>Untuk setiap fitur, hitung rata-rata dari nilai fitur untuk setiap kelas.</p>
+</section>
+<section id="menghitung-varian-dari-fitur-setiap-kelas">
+<h3>5.3.4 Menghitung VARIAN dari Fitur Setiap Kelas<a class="headerlink" href="#menghitung-varian-dari-fitur-setiap-kelas" title="Link to this heading">#</a></h3>
+<img src="PROSES 3.PNG" width="" align="" /><p>Untuk setiap fitur, hitung VAR dari nilai fitur untuk setiap kelas.</p>
+</section>
+<section id="hitung-probabilitas-tiap-kelas-dengan-inputan">
+<h3>5.3.5 Hitung Probabilitas Tiap Kelas Dengan Inputan<a class="headerlink" href="#hitung-probabilitas-tiap-kelas-dengan-inputan" title="Link to this heading">#</a></h3>
+<img src="PROSES 5.PNG" width="" align="" /><p>Untuk perhitungan ini menggunakan rumus Gaussian Naive Bayes yaitu</p>
+<img src="GAUSSIANNAIVEBAYES.jpg" width="" align="" /></section>
+<section id="klasifikasi-hasil-akhir-dan-perankingan">
+<h3>5.3.6 Klasifikasi Hasil Akhir dan Perankingan<a class="headerlink" href="#klasifikasi-hasil-akhir-dan-perankingan" title="Link to this heading">#</a></h3>
+<img src="PROSES 6.PNG" width="" align="" /><p>Untuk tahap terakhir yaitu pengklasifikasian dengan cara mengalikan probabilitas prior kelas / variey tersebut dengan nilai probabilitas dari masing-masing fitur. Lalu urutkan berdasarkan yang paling tinggi, maka itu adalah hasil akhirnya. Pada hasil diatas yang tertinggi adalah kelas Versicolor(1) dengan nilai probabilitas sebesar 0,0108822 dan hasilnya sama dengan menghitung dengan menggunaka code</p>
+<a style='text-decoration:none;line-height:16px;display:flex;color:#5B5B62;padding:10px;justify-content:end;' href='https://deepnote.com?utm_source=created-in-deepnote-cell&projectId=4499776d-a24a-4830-a738-9deb25af867e' target="_blank">
+<img alt='Created in deepnote.com' style='display:inline;max-height:16px;margin:0px;margin-right:7.5px;' src='data:image/svg+xml;base64,PD94bWwgdmVyc2lvbj0iMS4wIiBlbmNvZGluZz0iVVRGLTgiPz4KPHN2ZyB3aWR0aD0iODBweCIgaGVpZ2h0PSI4MHB4IiB2aWV3Qm94PSIwIDAgODAgODAiIHZlcnNpb249IjEuMSIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIiB4bWxuczp4bGluaz0iaHR0cDovL3d3dy53My5vcmcvMTk5OS94bGluayI+CiAgICA8IS0tIEdlbmVyYXRvcjogU2tldGNoIDU0LjEgKDc2NDkwKSAtIGh0dHBzOi8vc2tldGNoYXBwLmNvbSAtLT4KICAgIDx0aXRsZT5Hcm91cCAzPC90aXRsZT4KICAgIDxkZXNjPkNyZWF0ZWQgd2l0aCBTa2V0Y2guPC9kZXNjPgogICAgPGcgaWQ9IkxhbmRpbmciIHN0cm9rZT0ibm9uZSIgc3Ryb2tlLXdpZHRoPSIxIiBmaWxsPSJub25lIiBmaWxsLXJ1bGU9ImV2ZW5vZGQiPgogICAgICAgIDxnIGlkPSJBcnRib2FyZCIgdHJhbnNmb3JtPSJ0cmFuc2xhdGUoLTEyMzUuMDAwMDAwLCAtNzkuMDAwMDAwKSI+CiAgICAgICAgICAgIDxnIGlkPSJHcm91cC0zIiB0cmFuc2Zvcm09InRyYW5zbGF0ZSgxMjM1LjAwMDAwMCwgNzkuMDAwMDAwKSI+CiAgICAgICAgICAgICAgICA8cG9seWdvbiBpZD0iUGF0aC0yMCIgZmlsbD0iIzAyNjVCNCIgcG9pbnRzPSIyLjM3NjIzNzYyIDgwIDM4LjA0NzY2NjcgODAgNTcuODIxNzgyMiA3My44MDU3NTkyIDU3LjgyMTc4MjIgMzIuNzU5MjczOSAzOS4xNDAyMjc4IDMxLjY4MzE2ODMiPjwvcG9seWdvbj4KICAgICAgICAgICAgICAgIDxwYXRoIGQ9Ik0zNS4wMDc3MTgsODAgQzQyLjkwNjIwMDcsNzYuNDU0OTM1OCA0Ny41NjQ5MTY3LDcxLjU0MjI2NzEgNDguOTgzODY2LDY1LjI2MTk5MzkgQzUxLjExMjI4OTksNTUuODQxNTg0MiA0MS42NzcxNzk1LDQ5LjIxMjIyODQgMjUuNjIzOTg0Niw0OS4yMTIyMjg0IEMyNS40ODQ5Mjg5LDQ5LjEyNjg0NDggMjkuODI2MTI5Niw0My4yODM4MjQ4IDM4LjY0NzU4NjksMzEuNjgzMTY4MyBMNzIuODcxMjg3MSwzMi41NTQ0MjUgTDY1LjI4MDk3Myw2Ny42NzYzNDIxIEw1MS4xMTIyODk5LDc3LjM3NjE0NCBMMzUuMDA3NzE4LDgwIFoiIGlkPSJQYXRoLTIyIiBmaWxsPSIjMDAyODY4Ij48L3BhdGg+CiAgICAgICAgICAgICAgICA8cGF0aCBkPSJNMCwzNy43MzA0NDA1IEwyNy4xMTQ1MzcsMC4yNTcxMTE0MzYgQzYyLjM3MTUxMjMsLTEuOTkwNzE3MDEgODAsMTAuNTAwMzkyNyA4MCwzNy43MzA0NDA1IEM4MCw2NC45NjA0ODgyIDY0Ljc3NjUwMzgsNzkuMDUwMzQxNCAzNC4zMjk1MTEzLDgwIEM0Ny4wNTUzNDg5LDc3LjU2NzA4MDggNTMuNDE4MjY3Nyw3MC4zMTM2MTAzIDUzLjQxODI2NzcsNTguMjM5NTg4NSBDNTMuNDE4MjY3Nyw0MC4xMjg1NTU3IDM2LjMwMzk1NDQsMzcuNzMwNDQwNSAyNS4yMjc0MTcsMzcuNzMwNDQwNSBDMTcuODQzMDU4NiwzNy43MzA0NDA1IDkuNDMzOTE5NjYsMzcuNzMwNDQwNSAwLDM3LjczMDQ0MDUgWiIgaWQ9IlBhdGgtMTkiIGZpbGw9IiMzNzkzRUYiPjwvcGF0aD4KICAgICAgICAgICAgPC9nPgogICAgICAgIDwvZz4KICAgIDwvZz4KPC9zdmc+' > </img>
+Created in <span style='font-weight:600;margin-left:4px;'>Deepnote</span></a></section>
+</section>
+</section>
+
+    <script type="text/x-thebe-config">
+    {
+        requestKernel: true,
+        binderOptions: {
+            repo: "binder-examples/jupyter-stacks-datascience",
+            ref: "master",
+        },
+        codeMirrorConfig: {
+            theme: "abcdef",
+            mode: "python"
+        },
+        kernelOptions: {
+            name: "python3",
+            path: "./."
+        },
+        predefinedOutput: true
+    }
+    </script>
+    <script>kernelName = 'python3'</script>
+
+                </article>
+              
+
+              
+              
+              
+              
+                <footer class="prev-next-footer">
+                  
+<div class="prev-next-area">
+    <a class="left-prev"
+       href="markdown.html"
+       title="previous page">
+      <i class="fa-solid fa-angle-left"></i>
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">previous</p>
+        <p class="prev-next-title">Markdown Files</p>
+      </div>
+    </a>
+    <a class="right-next"
+       href="markdown-notebooks.html"
+       title="next page">
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">next</p>
+        <p class="prev-next-title">Notebooks with MyST Markdown</p>
+      </div>
+      <i class="fa-solid fa-angle-right"></i>
+    </a>
+</div>
+                </footer>
+              
+            </div>
+            
+            
+              
+                <div class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
+
+
+  <div class="sidebar-secondary-item">
+  <div class="page-toc tocsection onthispage">
+    <i class="fa-solid fa-list"></i> Contents
+  </div>
+  <nav class="bd-toc-nav page-toc">
+    <ul class="visible nav section-nav flex-column">
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#">1. Pengumpulan Data dan Pembuatan Tabel Iris Flower</a><ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#menampilkan-data-postgre">1.1 Menampilkan Data Postgre</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#menampilkan-data-cloud">1.2 Menampilkan Data Cloud</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#menampilkan-semua-data">1.3 Menampilkan Semua Data</a></li>
+</ul>
+</li>
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#pemahaman-data">2. Pemahaman Data</a><ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#menampilkan-data-sepal-length-yang-kosong">2.1 Menampilkan data sepal length yang kosong</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#menampilkan-data-sepal-length-setosa-yang-kosong">2.2 Menampilkan data sepal length “setosa” yang kosong</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#menampilkan-data-sepal-length-setosa-yang-tidak-kosong">2.3 Menampilkan data sepal length “setosa” yang  tidak kosong</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#menampilkan-mean">2.4 Menampilkan MEAN</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#memasukkan-dan-update-data-baru">2.5 Memasukkan dan update data baru</a></li>
+</ul>
+</li>
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#implementasi-pada-missing-value-knn">3. Implementasi pada missing value KNN</a><ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#perhitungan-manual-excel">3.1 Perhitungan Manual Excel</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#persiapkan-data">3.1.1 Persiapkan Data</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#missing-values-dan-rata-rata">3.1.2 Missing Values dan rata rata</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#menghitung-jarak-rank-dan-tetangga-terdekat">3.1.3  Menghitung Jarak,Rank, dan tetangga terdekat</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#perhitungan-scikit">3.2 Perhitungan Scikit</a></li>
+</ul>
+</li>
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#deteksi-outlier">4. DETEKSI OUTLIER()</a><ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#penjelasan">4.1 Penjelasan</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#menghitung-manual-deteksi-outlier">4.2 Menghitung manual deteksi outlier</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#menghitung-jarak-dan-menetukan-k-neighbour">4.2.1 MENGHITUNG JARAK DAN MENETUKAN K-NEIGHBOUR</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#reachability-density-rd">4.2.2 REACHABILITY DENSITY (RD)</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#local-reachability-density-lrd">4.2.3 LOCAL REACHABILITY DENSITY(LRD)</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#local-outlier-factor-lof">4.2.4 LOCAL OUTLIER FACTOR(LOF)</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#menghitung-menggunakan-library-scikit">4.3 Menghitung menggunakan library Scikit</a></li>
+</ul>
+</li>
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#naive-bayes-classifier">5. NAIVE BAYES CLASSIFIER</a><ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id1">5.1 Penjelasan</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#supervised-learning-vs-unsupervised-learning">5.1.1 Supervised Learning vs Unsupervised Learning</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#klasifikasi-dan-prediksi">5.1.2 KLASIFIKASI DAN PREDIKSI</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#perhitungan-naive-bayes-menggunakan-code">5.2 PERHITUNGAN NAIVE BAYES MENGGUNAKAN CODE</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#perhitungan-manual-naive-bayes-menggunakan-excel">5.3 PERHITUNGAN MANUAL NAIVE BAYES MENGGUNAKAN EXCEL</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id2">5.3.1 Persiapkan Data</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#menghitung-probabilitas-setiap-kelas-variety">5.3.2 Menghitung Probabilitas Setiap Kelas / Variety</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#menghitung-mean-dari-fitur-setiap-kelas">5.3.3 Menghitung MEAN dari Fitur Setiap Kelas</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#menghitung-varian-dari-fitur-setiap-kelas">5.3.4 Menghitung VARIAN dari Fitur Setiap Kelas</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#hitung-probabilitas-tiap-kelas-dengan-inputan">5.3.5 Hitung Probabilitas Tiap Kelas Dengan Inputan</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#klasifikasi-hasil-akhir-dan-perankingan">5.3.6 Klasifikasi Hasil Akhir dan Perankingan</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+
+  </nav></div>
+
+</div></div>
+              
+            
+          </div>
+          <footer class="bd-footer-content">
+            
+<div class="bd-footer-content__inner container">
+  
+  <div class="footer-item">
+    
+<p class="component-author">
+By The Jupyter Book Community
+</p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+
+  <p class="copyright">
+    
+      © Copyright 2023.
+      <br/>
+    
+  </p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+</div>
+          </footer>
+        
+
+      </main>
+    </div>
+  </div>
+  
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script src="_static/scripts/bootstrap.js?digest=8d27b9dea8ad943066ae"></script>
+<script src="_static/scripts/pydata-sphinx-theme.js?digest=8d27b9dea8ad943066ae"></script>
+
+  <footer class="bd-footer">
+  </footer>
+  </body>
+</html>
